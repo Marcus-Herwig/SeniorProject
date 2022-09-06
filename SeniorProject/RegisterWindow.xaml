@@ -1,0 +1,175 @@
+﻿<Window x:Class="SeniorProject.RegisterWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SeniorProject"
+        mc:Ignorable="d"
+        WindowStyle="none"
+        ResizeMode="NoResize"
+        Background="#05083d"
+        Title="RegisterWindow" Height="500" Width="500">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Background="#030526"
+              Grid.ColumnSpan="2"
+              MouseDown="Grid_MouseDown">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Create Account"
+                       Foreground="White"
+                       Grid.Column="0"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       FontFamily="Segoe UI"
+                       FontWeight="Medium"
+                       FontSize="20"
+                       Margin="0,0,330,0"
+                       />
+
+            <Button Content="Back to Login"
+                        Foreground="White"
+                        FontSize="14"
+                        FontWeight="Medium"
+                        Margin="150,0,0,0"
+                    Grid.Column="6"
+                    Grid.ColumnSpan="3" Click="Button_Click_BackToLogin">
+
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="Segoe UI"/>
+                        <Setter Property="Background" Value="#FE6584"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF4C70"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="100" Height="25" CornerRadius="14"
+                                    Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+
+            </Button>
+
+            <Button Content="Exit"
+                        Foreground="White"
+                        FontSize="14"
+                        FontWeight="Medium"
+                        Margin="375,0,0,0"
+                    Grid.Column="6"
+                    Grid.ColumnSpan="3" Click="Button_Click_close">
+
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="Segoe UI"/>
+                        <Setter Property="Background" Value="#FE6584"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF4C70"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="100" Height="25" CornerRadius="14"
+                                    Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+
+            </Button>
+        </Grid>
+
+        <StackPanel Grid.Row="1" Margin="0,0,0,0">
+            <StackPanel Margin="50,50, 50, 0" Orientation="Horizontal">
+
+                <Image Width="50" Height="50"
+                       Source="Images/chat.png"
+                       Margin="90,0,0,0"
+                           RenderOptions.BitmapScalingMode="Fant"
+                       HorizontalAlignment="Left"
+                       />
+
+                <TextBlock Text="The Chat App"
+                           Foreground="White"
+                           FontSize="22"
+                           FontWeight="Medium"
+                           VerticalAlignment="Center"
+                           FontFamily="Segoe UI"
+                           Margin="15,0,0,0"/>
+                
+
+            </StackPanel>
+            <StackPanel Margin="50,90,50,0">
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <TextBlock Text="Username: "
+                       Foreground="White"
+                       FontSize="18"
+                       FontWeight="Medium"
+                       FontFamily="Segoe UI"
+                       Margin="65,0,0,0"/>
+
+                    <TextBox x:Name="UsernameRegister" Margin="10,0,0,0" Cursor="IBeam" IsReadOnly="false" Height="22" Width="175" Background="DarkGray"/>
+
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,10">
+                    <TextBlock Text="Password: "
+                       Foreground="White"
+                       FontSize="18"
+                       FontWeight="Medium"
+                       FontFamily="Segoe UI"
+                       Margin="68,0,0,0"/>
+
+                    <TextBox x:Name="PasswordRegister" Margin="12,0,0,0" Cursor="IBeam" IsReadOnly="false" Height="22" Width="175" Background="DarkGray"/>
+
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,10">
+                    <TextBlock Text="Confirm Password: "
+                       Foreground="White"
+                       FontSize="18"
+                       FontWeight="Medium"
+                       FontFamily="Segoe UI"
+                       Margin="0,0,0,0"/>
+
+                    <TextBox x:Name="ConfirmPassWordText" Margin="10,0,0,0" Cursor="IBeam" IsReadOnly="false" Height="20" Width="175" Background="DarkGray"/>
+
+                </StackPanel>
+                
+
+            </StackPanel>
+            
+        </StackPanel>
+        
+    </Grid>
+</Window>
