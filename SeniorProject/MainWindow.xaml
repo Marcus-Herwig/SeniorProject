@@ -97,7 +97,7 @@
 
                     <TextBlock Text="The Chat App"
                            Foreground="White"
-                           FontSize="20"
+                           FontSize="25"
                            FontWeight="Medium"
                            VerticalAlignment="Center"
                            FontFamily="Segoe UI"

@@ -43,8 +43,9 @@ namespace SeniorProject
 
         private void Button_Click_Login(object sender, RoutedEventArgs e)
         {
-            this.PassWordText.Text = this.UsernameText.Text;
-            UsernameText.Text = "";
+            HomeScreen home = new HomeScreen();
+            this.Close();
+            home.Show();
             
         }
 
