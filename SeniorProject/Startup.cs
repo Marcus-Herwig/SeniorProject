@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using SeniorProject.Configuration;
 
 namespace SeniorProject
 {
@@ -35,10 +36,9 @@ namespace SeniorProject
                 .Build();
                 config.Bind(this._config);
             }
-            catch (Exception e)
+            catch 
             {
-                Console.WriteLine("failed to get access to config file to configure app settings");
-                Console.WriteLine(e.Message);
+                Environment.Exit(0);
             }
             return this._config;
         }

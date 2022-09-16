@@ -19,9 +19,14 @@ namespace SeniorProject
     /// </summary>
     public partial class HomeScreen : Window
     {
+        MainWindow login;
+        ChatScreen chatWin;
         public HomeScreen()
         {
             InitializeComponent();
+            this.login = new MainWindow();
+            this.chatWin = new ChatScreen();
+            //this.WelcomeBox.Text = "Welcome " + App.Current.Properties["Username"];
         }
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
@@ -31,11 +36,23 @@ namespace SeniorProject
                 DragMove();
             }
         }
-
         private void ExitApp(object sender, RoutedEventArgs e)
         {
             this.Close();
+            Environment.Exit(0);
         }
 
+        private void Button_Click_Chat(object sender, RoutedEventArgs e)
+        {
+            chatWin.Show();
+            this.Close();
+        }
+
+        private void Button_Click_Logout(object sender, RoutedEventArgs e)
+        {
+            //App.Current.Properties["Username"] = null;
+            login.Show();
+            this.Close();
+        }
     }
 }

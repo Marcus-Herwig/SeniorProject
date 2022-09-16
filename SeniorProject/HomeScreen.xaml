@@ -8,7 +8,8 @@
         Title="HomeScreen" Height="770" Width="1420"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
-        Background="#05083d">
+        Background="#05083d"
+        ResizeMode="NoResize">
 
     <Grid>
 
@@ -30,7 +31,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Text="Filler"
+            <TextBox x:Name="WelcomeBox" Text=""
                        Foreground="White"
                        Grid.Column="0"
                        VerticalAlignment="Center"
@@ -39,7 +40,44 @@
                        FontWeight="Medium"
                        FontSize="24"
                        Margin="20,0,0,0"
+                     Background="Transparent"
+                     BorderBrush="Transparent"
                        />
+
+            <Button Content="Logout"
+                        Foreground="White"
+                        FontSize="14"
+                        FontWeight="Medium"
+                        Margin="0,0,135,0"
+                    HorizontalAlignment="Right"
+                    Grid.Column="6"
+                    Grid.ColumnSpan="3" Click="Button_Click_Logout">
+
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="Segoe UI"/>
+                        <Setter Property="Background" Value="#FE6584"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF4C70"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="100" Height="25" CornerRadius="14"
+                                    Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+
+            </Button>
 
             <Button Content="Exit"
                         Foreground="White"
@@ -104,7 +142,9 @@
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Height="100" 
-                                    Background="{TemplateBinding Background}">
+                                    Background="{TemplateBinding Background}"
+                                BorderBrush="#04133b"
+                                BorderThickness="1">
                             <ContentPresenter VerticalAlignment="Center"
                                                   HorizontalAlignment="Center"/>
                         </Border>
@@ -117,7 +157,7 @@
                         Foreground="White"
                         FontSize="21"
                         FontWeight="Medium"
-                        Margin="0,0,0,0" BorderBrush="Black"
+                        Margin="0,0,0,0" BorderBrush="Black" Click="Button_Click_Chat"
                         >
 
                 <Button.Style>
@@ -137,7 +177,9 @@
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Height="100" 
-                                    Background="{TemplateBinding Background}">
+                                    Background="{TemplateBinding Background}"
+                                BorderBrush="#04133b"
+                                BorderThickness="1">
                             <ContentPresenter VerticalAlignment="Center"
                                                   HorizontalAlignment="Center"/>
                         </Border>
@@ -170,7 +212,9 @@
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Height="100" 
-                                    Background="{TemplateBinding Background}">
+                                    Background="{TemplateBinding Background}"
+                                BorderBrush="#04133b"
+                                BorderThickness="1">
                             <ContentPresenter VerticalAlignment="Center"
                                                   HorizontalAlignment="Center"/>
                         </Border>
@@ -203,7 +247,9 @@
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Height="100" 
-                                    Background="{TemplateBinding Background}">
+                                    Background="{TemplateBinding Background}"
+                                BorderBrush="#04133b"
+                                BorderThickness="1">
                             <ContentPresenter VerticalAlignment="Center"
                                                   HorizontalAlignment="Center"/>
                         </Border>

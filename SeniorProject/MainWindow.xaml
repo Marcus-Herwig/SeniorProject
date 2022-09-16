@@ -8,7 +8,8 @@
         Title="MainWindow" Height="500" Width="900"
         WindowStyle="none"
         ResizeMode="NoResize"
-        Background="#05083d">
+        Background="#05083d"
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -127,14 +128,16 @@
 
         </StackPanel>
         
-        <StackPanel Orientation="Horizontal"
-                    Grid.Column="1"
+        <StackPanel Grid.Column="1"
                     Grid.Row="1"
                         Margin="0,0,0,0">
 
-            <StackPanel Orientation="Horizontal" Margin="100,100,0,150">
+            <Label x:Name="LoginWarning" FontSize="18" Foreground="Yellow" HorizontalAlignment="Center" Margin="0,60"/>
 
-                <StackPanel Orientation="Horizontal" Margin="0,27,0,147">
+            <StackPanel Orientation="Horizontal" Margin="60,0,60,150">
+                
+                
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,147">
 
                     <TextBlock Text="Username: "
                        Foreground="White"
@@ -148,7 +151,7 @@
 
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal" Margin="-248,65,0,105">
+                <StackPanel Orientation="Horizontal" Margin="-248,40,0,105">
 
                     <TextBlock Text="Password: "
                        Foreground="White"
@@ -161,72 +164,73 @@
                     
                 </StackPanel>
 
+                <Button Content="Login"
+                        Foreground="White"
+                        FontSize="14"
+                        FontWeight="Medium"
+                        Margin="-325,50,0,0" Click="Button_Click_Login" Height="25">
+
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="TextElement.FontFamily" Value="Segoe UI"/>
+                            <Setter Property="Background" Value="#FE6584"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#FF4C70"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="100" Height="25" CornerRadius="12"
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+
+                </Button>
+
+                <Button Content="Register"
+                        Foreground="White"
+                        FontSize="14"
+                        FontWeight="Medium"
+                    Margin="-90,50,0,0" Height="25" Click="Button_Click_Register">
+
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="TextElement.FontFamily" Value="Segoe UI"/>
+                            <Setter Property="Background" Value="#39385D"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#3A3952"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="100" Height="25" CornerRadius="12"
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+
+                </Button>
 
             </StackPanel>
 
-            <Button Content="Login"
-                        Foreground="White"
-                        FontSize="14"
-                        FontWeight="Medium"
-                        Margin="-210,60,100,0" Click="Button_Click_Login" Height="75">
-
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="TextElement.FontFamily" Value="Segoe UI"/>
-                        <Setter Property="Background" Value="#FE6584"/>
-                        <Setter Property="Cursor" Value="Hand"/>
-
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#FF4C70"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Border Width="100" Height="25" CornerRadius="12"
-                                    Background="{TemplateBinding Background}">
-                            <ContentPresenter VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-
-            </Button>
-
-            <Button Content="Register"
-                        Foreground="White"
-                        FontSize="14"
-                        FontWeight="Medium"
-                    Margin="-90,60,0,0" Height="80" Click="Button_Click_Register">
-
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="TextElement.FontFamily" Value="Segoe UI"/>
-                        <Setter Property="Background" Value="#39385D"/>
-                        <Setter Property="Cursor" Value="Hand"/>
-
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#3A3952"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Border Width="100" Height="25" CornerRadius="12"
-                                    Background="{TemplateBinding Background}">
-                            <ContentPresenter VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-
-            </Button>
+            
 
         </StackPanel>
 
