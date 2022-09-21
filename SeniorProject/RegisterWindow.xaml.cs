@@ -78,10 +78,10 @@ namespace SeniorProject
                     if (UsernameRegister.Text != null && UsernameRegister.Text != "" && PasswordRegister.Text != null && PasswordRegister.Text != "" && ConfirmPassWordText.Text == PasswordRegister.Text)
                     {
                         var entity = new TableEntity("Account", this.UsernameRegister.Text)
-                    {
-                        {"Username", this.UsernameRegister.Text },
-                        {"Password", this.PasswordRegister.Text }
-                    };
+                        {
+                            {"Username", this.UsernameRegister.Text },
+                            {"Password", this.PasswordRegister.Text }
+                        };
                         this.client.CreateIfNotExistsAsync();
                         this.client.AddEntity(entity);
                     }

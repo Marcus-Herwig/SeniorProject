@@ -24,7 +24,6 @@ namespace SeniorProject
         public ChatScreen()
         {
             InitializeComponent();
-            this.login = new MainWindow();
             this.Home = new HomeScreen();
         }
 
@@ -72,8 +71,9 @@ namespace SeniorProject
 
         private void Button_Click_Home(object sender, RoutedEventArgs e)
         {
-            this.Close();
             this.Home.Show();
+            this.Close();
+            
         }
     }
 }

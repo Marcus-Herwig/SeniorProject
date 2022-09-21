@@ -25,7 +25,6 @@ namespace SeniorProject
     /// </summary>
     public partial class MainWindow : Window
     {
-        HomeScreen home;
         TableClient? client;
         string AzureStorageConnectionString;
         string AzureStorageKey;
@@ -33,7 +32,6 @@ namespace SeniorProject
         public MainWindow()
         {
             InitializeComponent();
-            this.home = new();
             this.AzureStorageConnectionString = "https://seniorproject.table.core.windows.net/";
             this.AzureStorageKey = "cy2AiZ+cJ9/Ft6uXeq7bFVgT2zcSKniQcOGXC955XTbjqvhg1xdN4S34f0ZH9tVEIc3doK4kbxld+AStm9DbtQ==";
             this.StorageAccountName = "seniorproject";
@@ -63,17 +61,23 @@ namespace SeniorProject
                 Pageable<TableEntity> queryResultsFilter = this.client.Query<TableEntity>(filter: $"PartitionKey eq 'Account'");
                 foreach (TableEntity entity in queryResultsFilter)
                 {
-                    if (entity.GetString("Username") == inputUsername && entity.GetString("Password") == inputPassword)
+                    if (entity.GetString("RowKey") == inputUsername)
                     {
-                       // App.Current.Properties["Username"] = this.UsernameText.Text;
-                        this.Close();
-                        this.home.Show();
-                    }
-                    else
-                    {
-                        this.LoginWarning.Content = "Please enter a valid username or password";
-                        this.UsernameText.Text = "";
-                        this.PassWordText.Text = "";
+                        if (entity.GetString("Username") == inputUsername && entity.GetString("Password") == inputPassword)
+                        {
+                            HomeScreen MainMenu = new HomeScreen();
+                            MainMenu.Show();
+                            MainMenu.checkForPendingFriendRequests();
+                            App.Current.Properties["Username"] = this.UsernameText.Text.ToString();
+                            this.Close();
+                            break;
+                        }
+                        else
+                        {
+                            this.LoginWarning.Content = "Please enter a valid username or password";
+                            this.UsernameText.Text = "";
+                            this.PassWordText.Text = "";
+                        }
                     }
                 }
             }
