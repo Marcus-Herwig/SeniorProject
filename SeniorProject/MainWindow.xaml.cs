@@ -32,6 +32,7 @@ namespace SeniorProject
         public MainWindow()
         {
             InitializeComponent();
+            this.UsernameText.Focus();
             this.AzureStorageConnectionString = "https://seniorproject.table.core.windows.net/";
             this.AzureStorageKey = "cy2AiZ+cJ9/Ft6uXeq7bFVgT2zcSKniQcOGXC955XTbjqvhg1xdN4S34f0ZH9tVEIc3doK4kbxld+AStm9DbtQ==";
             this.StorageAccountName = "seniorproject";
@@ -65,10 +66,10 @@ namespace SeniorProject
                     {
                         if (entity.GetString("Username") == inputUsername && entity.GetString("Password") == inputPassword)
                         {
+                            App.Current.Properties["Username"] = this.UsernameText.Text.ToString();
                             HomeScreen MainMenu = new HomeScreen();
                             MainMenu.Show();
                             MainMenu.checkForPendingFriendRequests();
-                            App.Current.Properties["Username"] = this.UsernameText.Text.ToString();
                             this.Close();
                             break;
                         }

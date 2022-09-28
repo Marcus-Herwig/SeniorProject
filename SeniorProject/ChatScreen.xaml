@@ -267,7 +267,7 @@
 
             <ListBox x:Name="friendsList" BorderBrush="#05194f" BorderThickness="0">
 
-                <ListBoxItem Template="{DynamicResource ListBoxItemTemplate}" Background="#05194f" Foreground="White" FontFamily="Segoe UI" FontSize="18" Content="Add Friends" BorderBrush="#140d4f" BorderThickness="0"/>
+                <ListBoxItem Template="{DynamicResource ListBoxItemTemplate}" Background="#05194f" Foreground="White" FontFamily="Segoe UI" FontSize="18" Content=" Friends" BorderBrush="#140d4f" BorderThickness="0"/>
             </ListBox>
 
         </StackPanel>
@@ -276,7 +276,9 @@
                     Grid.Row="1">
 
 
-            <ScrollViewer VerticalScrollBarVisibility="Visible" Margin="0,0,0,0" Height="550">
+            <Label x:Name="FriendName" Content="" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5" FontSize="40" Foreground="White"/>
+            <Border BorderBrush="White" BorderThickness="1"/>
+            <ScrollViewer VerticalScrollBarVisibility="Visible" Margin="0,0,0,0" Height="490">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -287,21 +289,8 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Row="0"
-                                Grid.Column="0"
-                                >
-                        <TextBlock Height="30" TextWrapping="Wrap" Padding="4" FontSize="20" Foreground="white">
-                            Hello
-                        </TextBlock>
-                        
-                    </StackPanel>
-
-                    <StackPanel Grid.Row="0"
-                                Grid.Column="1"
-                                >
-                        <TextBlock Height="30" TextWrapping="Wrap" Padding="4" FontSize="20" Foreground="white" HorizontalAlignment="Right">
-                            Hello
-                        </TextBlock>
-                    </StackPanel>
+                                Grid.ColumnSpan="2"
+                                x:Name="ChatMessages"/>
 
 
                 </Grid>
@@ -309,7 +298,7 @@
             
             </ScrollViewer>
 
-            <Border BorderBrush="#030526" BorderThickness="2"/>
+            <Border BorderBrush="White" BorderThickness="1"/>
             
             <StackPanel Height="167" Orientation="Horizontal">
                 
@@ -320,7 +309,7 @@
                         FontSize="24"
                         FontWeight="Medium"
                         Margin="17,0,0,0"
-                    HorizontalAlignment="Right"
+                    HorizontalAlignment="Right" Click="Button_Click_Send"
                     >
 
                     <Button.Style>
