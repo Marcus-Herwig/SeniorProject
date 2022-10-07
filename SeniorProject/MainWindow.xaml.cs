@@ -62,22 +62,16 @@ namespace SeniorProject
                 Pageable<TableEntity> queryResultsFilter = this.client.Query<TableEntity>(filter: $"PartitionKey eq 'Account'");
                 foreach (TableEntity entity in queryResultsFilter)
                 {
-                    if (entity.GetString("RowKey") == inputUsername)
+                    if (entity.GetString("RowKey").ToLower() == inputUsername.ToLower())
                     {
-                        if (entity.GetString("Username") == inputUsername && entity.GetString("Password") == inputPassword)
+                        if (entity.GetString("Username").ToLower() == inputUsername.ToLower() && entity.GetString("Password") == inputPassword)
                         {
-                            App.Current.Properties["Username"] = this.UsernameText.Text.ToString();
+                            App.Current.Properties["Username"] = entity.GetString("Username");
                             HomeScreen MainMenu = new HomeScreen();
                             MainMenu.Show();
                             MainMenu.checkForPendingFriendRequests();
                             this.Close();
                             break;
-                        }
-                        else
-                        {
-                            this.LoginWarning.Content = "Please enter a valid username or password";
-                            this.UsernameText.Text = "";
-                            this.PassWordText.Text = "";
                         }
                     }
                 }
@@ -86,7 +80,9 @@ namespace SeniorProject
             {
                 this.UsernameText.Text = ex.Message;
             }
-            
+            this.LoginWarning.Content = "Please enter a valid username or password";
+            this.UsernameText.Text = "";
+            this.PassWordText.Text = "";
         }
 
         private void Button_Click_Register(object sender, RoutedEventArgs e)

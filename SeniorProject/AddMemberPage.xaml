@@ -1,0 +1,139 @@
+﻿<Window x:Class="SeniorProject.AddMemberPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SeniorProject"
+        mc:Ignorable="d"
+        WindowStyle="none"
+        ResizeMode="NoResize"
+        Background="#05083d"
+        WindowStartupLocation="CenterScreen"
+        Title="RegisterWindow" Height="350" Width="500">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Background="#030526"
+              Grid.ColumnSpan="2"
+              MouseDown="Grid_MouseDown">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Add Member"
+                       Foreground="White"
+                       Grid.Column="0"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       FontFamily="Segoe UI"
+                       FontWeight="Medium"
+                       FontSize="20"
+                       Margin="0,0,330,0"
+                       />
+
+            <Button Content="Done"
+                        Foreground="White"
+                        FontSize="14"
+                        FontWeight="Medium"
+                        Margin="375,0,0,0"
+                    Grid.Column="6"
+                    Grid.ColumnSpan="3" Click="Button_Click_close">
+
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="Segoe UI"/>
+                        <Setter Property="Background" Value="#FE6584"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF4C70"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="100" Height="25" CornerRadius="14"
+                                    Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+
+            </Button>
+        </Grid>
+
+        <StackPanel Grid.Row="1" Margin="0,0,0,0">
+
+            <Label x:Name="ErrorMessage" Content="" Height="35" Margin="50,20" FontSize="18" Foreground="Yellow" HorizontalAlignment="Center"/>
+
+            <StackPanel Margin="50,0,50,0">
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <TextBlock Text="Username to Add: "
+                       Foreground="White"
+                       FontSize="18"
+                       FontWeight="Medium"
+                       FontFamily="Segoe UI"
+                       Margin="50,0,0,0"/>
+
+                    <TextBox x:Name="MemberUsername" Margin="10,0,0,0" Cursor="IBeam" IsReadOnly="false" Height="22" Width="175" Background="DarkGray"/>
+
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,10"/>
+
+                <StackPanel Orientation="Horizontal" Margin="0,10"/>
+
+
+
+
+            </StackPanel>
+            <Button Content="Add Member"
+                        Foreground="White"
+                        FontSize="14"
+                        FontWeight="Medium"
+                        Click="Button_Click_AddMember">
+
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="TextElement.FontFamily" Value="Segoe UI"/>
+                        <Setter Property="Background" Value="#FE6584"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF4C70"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Width="125" Height="40" CornerRadius="14"
+                                    Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+
+            </Button>
+
+        </StackPanel>
+
+    </Grid>
+</Window>

@@ -10,6 +10,29 @@
         ResizeMode="NoResize"
         Background="#05083d"
         WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <ControlTemplate x:Key="TextBoxRoundedCorners" TargetType="{x:Type TextBoxBase}">
+            <Border Background="{TemplateBinding Background}" 
+                x:Name="Bd" BorderBrush="Black"
+                BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10">
+                <ScrollViewer x:Name="PART_ContentHost"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" TargetName="Bd"/>
+                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                </Trigger>
+                <Trigger Property="Width" Value="Auto">
+                    <Setter Property="MinWidth" Value="100"/>
+                </Trigger>
+                <Trigger Property="Height" Value="Auto">
+                    <Setter Property="MinHeight" Value="20"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -146,7 +169,7 @@
                        FontFamily="Segoe UI"
                        Margin="0,0,0,0"/>
 
-                    <TextBox x:Name="UsernameText" Margin="10,0,0,0" Cursor="IBeam" IsReadOnly="false" Height="22" Width="175" Background="DarkGray"/>
+                    <TextBox Template="{StaticResource TextBoxRoundedCorners}" x:Name="UsernameText" Margin="10,0,0,0" Cursor="IBeam" IsReadOnly="false" Height="26" Width="175" Background="#e6e6e6" VerticalContentAlignment="Center" FontSize="18"/>
 
 
                 </StackPanel>
@@ -160,7 +183,13 @@
                        FontFamily="Segoe UI"
                        Margin="-27,0,0,0"/>
 
-                    <TextBox x:Name="PassWordText" Margin="14,0,0,0" Cursor="IBeam" IsReadOnly="false" Height="22" Width="175" Background="DarkGray"/>
+                    <TextBox Template="{StaticResource TextBoxRoundedCorners}" x:Name="PassWordText" Margin="14,0,0,0" IsReadOnly="false" Height="26" Width="175" Background="#e6e6e6" VerticalContentAlignment="Center" FontSize="18">
+                        <TextBox.Resources>
+                            <Style TargetType="TextBox">
+                                <Setter Property="TextElement.FontFamily" Value="Fonts/#password"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
                     
                 </StackPanel>
 

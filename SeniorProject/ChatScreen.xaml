@@ -11,6 +11,28 @@
         Background="#05083d"
         ResizeMode="NoResize">
 
+    <Window.Resources>
+        <ControlTemplate x:Key="TextBoxRoundedCorners" TargetType="{x:Type TextBoxBase}">
+            <Border Background="{TemplateBinding Background}" 
+                x:Name="Bd" BorderBrush="Black"
+                BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10">
+                <ScrollViewer x:Name="PART_ContentHost"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" TargetName="Bd"/>
+                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                </Trigger>
+                <Trigger Property="Width" Value="Auto">
+                    <Setter Property="MinWidth" Value="100"/>
+                </Trigger>
+                <Trigger Property="Height" Value="Auto">
+                    <Setter Property="MinHeight" Value="20"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Window.Resources>
+
     <Grid>
 
         <Grid.RowDefinitions>
@@ -20,7 +42,7 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="250"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
@@ -32,7 +54,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Text="Filler"
+            <TextBlock x:Name="UsernameLabel" Text=""
                        Foreground="White"
                        Grid.Column="0"
                        VerticalAlignment="Center"
@@ -191,7 +213,7 @@
                         Foreground="White"
                         FontSize="21"
                         FontWeight="Medium"
-                        Margin="0,0,0,0" BorderBrush="Black"
+                        Margin="0,0,0,0" BorderBrush="Black" Click="Button_Click_Teams"
                         >
 
                 <Button.Style>
@@ -300,11 +322,11 @@
 
             <Border BorderBrush="White" BorderThickness="1"/>
             
-            <StackPanel Height="167" Orientation="Horizontal">
+            <StackPanel Height="150" Orientation="Horizontal">
                 
-                <TextBox x:Name="chatText" Margin="90,0,0,0" Cursor="IBeam" IsReadOnly="false" Height="40" Width="700" Background="DarkGray" FontSize="30" FontFamily="Segoe UI"/>
+                <TextBox  Template="{StaticResource TextBoxRoundedCorners}" x:Name="chatText" Margin="90,0,0,0" Cursor="IBeam" IsReadOnly="false" Height="40" Width="700" Background="DarkGray" FontSize="30" FontFamily="Segoe UI" VerticalContentAlignment="Center"/>
                 
-                <Button Content=">"
+                <Button
                         Foreground="White"
                         FontSize="24"
                         FontWeight="Medium"
@@ -312,15 +334,17 @@
                     HorizontalAlignment="Right" Click="Button_Click_Send"
                     >
 
+                    <Image Source="Images\sendArrow.png" Width="69"></Image>
+
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="TextElement.FontFamily" Value="Segoe UI"/>
-                            <Setter Property="Background" Value="#FE6584"/>
+                            <Setter Property="Background" Value="#053a96"/>
                             <Setter Property="Cursor" Value="Hand"/>
 
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#FF4C70"/>
+                                    <Setter Property="Background" Value="#161554"/>
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
@@ -337,6 +361,9 @@
                     </Button.Template>
 
                 </Button>
+
+                <Label x:Name="LabelError" Content="" FontFamily="Segoe UI" FontSize="26" Foreground="Yellow" Margin="-850,100,0,0"/>
+
             </StackPanel>
             
 

@@ -235,5 +235,12 @@ namespace SeniorProject
                 MessageBox.Show($"The username entered does not exist");
             }
         }
+
+        private void Button_Click_Teams(object sender, RoutedEventArgs e)
+        {
+            TeamChatScreen teamScreen = new TeamChatScreen();
+            teamScreen.Show();
+            this.Close();
+        }
     }
 }

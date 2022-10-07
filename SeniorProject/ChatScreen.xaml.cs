@@ -40,6 +40,7 @@ namespace SeniorProject
             this.client = new TableClient(new Uri(this.AzureStorageConnectionString), "Accounts", new TableSharedKeyCredential(this.StorageAccountName, this.AzureStorageKey));
             this.CreateFriendList();
             this.CurrFriend = null;
+            this.UsernameLabel.Text = App.Current.Properties["Username"].ToString();
         }
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
@@ -92,14 +93,19 @@ namespace SeniorProject
         {
             this.friendIsSelected = false;
             this.Home.Show();
+            this.Home.checkForPendingFriendRequests();
             this.Close();
             
         }
         private async void ListBoxItem_Selected(object sender, RoutedEventArgs e)
         {
+            this.recievedMessagesHash.Clear();
+            this.sentMessagesHash.Clear();
             this.friendIsSelected = false;
             this.CurrFriend = null;
+
             this.ChatMessages.Children.Clear();
+            
             
             foreach (ListBoxItem item in this.friendsList.Items)
             {
@@ -126,7 +132,7 @@ namespace SeniorProject
                                 {
                                     this.Dispatcher.Invoke(() =>
                                     {
-                                        TextBlock text = new TextBlock();
+                                        TextBox text = new TextBox();
                                         text.Height = 30;
                                         text.TextWrapping = TextWrapping.Wrap;
                                         text.Margin = new Thickness(0, 15, 15, 0);
@@ -136,8 +142,25 @@ namespace SeniorProject
                                         text.MaxWidth = 500;
                                         text.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("White"));
                                         text.Text = chat.GetString("Message");
+                                        text.IsReadOnly = true;
+                                        text.BorderBrush = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("Transparent"));
+                                        text.BorderThickness = new Thickness(0);
                                         this.ChatMessages.Children.Add(text);
                                         this.sentMessagesHash.Add(chat.GetString("Message"));
+
+
+                                        Label time = new Label();
+                                        time.Height = 23;
+                                        time.Margin = new Thickness(0, 0, 15, 0);
+                                        time.HorizontalAlignment = HorizontalAlignment.Right;
+                                        time.Background = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#161554"));
+                                        time.FontSize = 11;
+                                        time.MaxWidth = 500;
+                                        time.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("White"));
+                                        time.Content = chat.GetString("TimeSent");
+                                        time.BorderBrush = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("Transparent"));
+                                        time.BorderThickness = new Thickness(0);
+                                        this.ChatMessages.Children.Add(time);
                                     });
                                 }
                             }
@@ -147,7 +170,7 @@ namespace SeniorProject
                                 {
                                     this.Dispatcher.Invoke(() =>
                                     {
-                                        TextBlock text = new TextBlock();
+                                        TextBox text = new TextBox();
                                         text.Height = 30;
                                         text.TextWrapping = TextWrapping.Wrap;
                                         text.Margin = new Thickness(15, 15, 0, 0);
@@ -157,8 +180,24 @@ namespace SeniorProject
                                         text.MaxWidth = 500;
                                         text.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("White"));
                                         text.Text = chat.GetString("Message");
+                                        text.IsReadOnly = true;
+                                        text.BorderThickness = new Thickness(0);
+                                        text.BorderBrush = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("Transparent"));
                                         this.ChatMessages.Children.Add(text);
                                         this.recievedMessagesHash.Add(chat.GetString("Message"));
+
+                                        Label time = new Label();
+                                        time.Height = 23;
+                                        time.Margin = new Thickness(15, 0, 0, 0);
+                                        time.HorizontalAlignment = HorizontalAlignment.Left;
+                                        time.Background = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#161554"));
+                                        time.FontSize = 11;
+                                        time.MaxWidth = 500;
+                                        time.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("White"));
+                                        time.Content = chat.GetString("TimeSent");
+                                        time.BorderBrush = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("Transparent"));
+                                        time.BorderThickness = new Thickness(0);
+                                        this.ChatMessages.Children.Add(time);
                                     });
                                 }
                             }
@@ -177,30 +216,46 @@ namespace SeniorProject
         {
             try
             {
-                int SentCount = 0;
-                Pageable<TableEntity> QueryForChats = this.client.Query<TableEntity>(filter: $"PartitionKey eq 'chat'");
-                foreach (TableEntity chat in QueryForChats)
+                if (this.FriendName.Content == "" || this.FriendName.Content == null)
                 {
-                    if (chat.GetString("Sender") == App.Current.Properties["Username"].ToString() && chat.GetString("Reciever") == this.CurrFriend)
-                    {
-                        SentCount++;
-                    }
+                    this.chatText.Clear();
+                    this.LabelError.Content = "Please select a friend to chat with";
                 }
-                string EntityRowKey = App.Current.Properties["Username"] + "to" + this.FriendName.Content + SentCount.ToString();
-                var newchat = new TableEntity("chat", EntityRowKey)
+                else
                 {
-                    {"Sender", App.Current.Properties["Username"] },
-                    {"Reciever", this.FriendName.Content },
-                    {"Message", this.chatText.Text }
-                };
-                this.client.AddEntity(newchat);
-                this.chatText.Text = "";
+                    this.LabelError.Content = "";
+                    int SentCount = 0;
+                    Pageable<TableEntity> QueryForChats = this.client.Query<TableEntity>(filter: $"PartitionKey eq 'chat'");
+                    foreach (TableEntity chat in QueryForChats)
+                    {
+                        if (chat.GetString("Sender") == App.Current.Properties["Username"].ToString() && chat.GetString("Reciever") == this.CurrFriend)
+                        {
+                            SentCount++;
+                        }
+                    }
+                    string EntityRowKey = App.Current.Properties["Username"] + "to" + this.FriendName.Content + SentCount.ToString();
+                    var newchat = new TableEntity("chat", EntityRowKey)
+                    {
+                        {"Sender", App.Current.Properties["Username"] },
+                        {"Reciever", this.FriendName.Content },
+                        {"TimeSent", DateTime.Now.ToString() },
+                        {"Message", this.chatText.Text }
+                    };
+                    this.client.AddEntity(newchat);
+                    this.chatText.Text = "";
+                }
             }
             catch (Exception i)
             {
                 MessageBox.Show(i.Message);
             }
             
+        }
+        private void Button_Click_Teams(object sender, RoutedEventArgs e)
+        {
+            TeamChatScreen teamScreen = new TeamChatScreen();
+            teamScreen.Show();
+            this.Close();
         }
     }
 }

@@ -9,7 +9,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Fonts\password.ttf" />
     <None Remove="Images\Chat.png" />
+    <None Remove="Images\sendArrow.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,7 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Fonts\password.ttf" />
     <Resource Include="Images\Chat.png" />
+    <Resource Include="Images\sendArrow.png" />
   </ItemGroup>
 
 </Project>
