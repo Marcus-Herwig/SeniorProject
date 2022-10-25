@@ -40,7 +40,7 @@ namespace SeniorProject
             this.client = new TableClient(new Uri(this.AzureStorageConnectionString), "Accounts", new TableSharedKeyCredential(this.StorageAccountName, this.AzureStorageKey));
             this.CreateFriendList();
             this.CurrFriend = null;
-            this.UsernameLabel.Text = App.Current.Properties["Username"].ToString();
+            this.UsernameLabel.Text = "Chat";
         }
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
@@ -86,6 +86,7 @@ namespace SeniorProject
             //App.Current.Properties["Username"] = null;
             MainWindow login = new MainWindow();
             login.Show();
+            System.Threading.Thread.Sleep(200);
             this.Close();
         }
 
@@ -94,6 +95,7 @@ namespace SeniorProject
             this.friendIsSelected = false;
             this.Home.Show();
             this.Home.checkForPendingFriendRequests();
+            System.Threading.Thread.Sleep(200);
             this.Close();
             
         }
@@ -255,6 +257,15 @@ namespace SeniorProject
         {
             TeamChatScreen teamScreen = new TeamChatScreen();
             teamScreen.Show();
+            System.Threading.Thread.Sleep(200);
+            this.Close();
+        }
+
+        private void Button_Click_Settings(object sender, RoutedEventArgs e)
+        {
+            SettingsMenu setting = new();
+            setting.Show();
+            System.Threading.Thread.Sleep(200);
             this.Close();
         }
     }

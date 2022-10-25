@@ -248,7 +248,7 @@
                         Foreground="White"
                         FontSize="21"
                         FontWeight="Medium"
-                        Margin="0,0,0,0" BorderBrush="Black"
+                        Margin="0,0,0,0" BorderBrush="Black" Click="Button_Click_Settings"
                         >
 
                 <Button.Style>

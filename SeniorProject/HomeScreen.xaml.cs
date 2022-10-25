@@ -158,14 +158,17 @@ namespace SeniorProject
         {
             ChatScreen chatWin = new();
             chatWin.Show();
+            System.Threading.Thread.Sleep(200);
             this.Close();
         }
 
         private void Button_Click_Logout(object sender, RoutedEventArgs e)
         {
             MainWindow login = new MainWindow();
+            
             App.Current.Properties["Username"] = null;
             login.Show();
+            System.Threading.Thread.Sleep(200);
             this.Close();
         }
 
@@ -209,8 +212,10 @@ namespace SeniorProject
         private void Button_Click_Refresh(object sender, RoutedEventArgs e)
         {
             HomeScreen newMain = new HomeScreen();
+            
             newMain.checkForPendingFriendRequests();
             newMain.Show();
+            System.Threading.Thread.Sleep(200);
             this.Close();
         }
 
@@ -240,6 +245,15 @@ namespace SeniorProject
         {
             TeamChatScreen teamScreen = new TeamChatScreen();
             teamScreen.Show();
+            System.Threading.Thread.Sleep(200);
+            this.Close();
+        }
+
+        private void Button_Click_Settings(object sender, RoutedEventArgs e)
+        {
+            SettingsMenu setting = new();
+            setting.Show();
+            System.Threading.Thread.Sleep(200);
             this.Close();
         }
     }

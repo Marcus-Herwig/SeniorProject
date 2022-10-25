@@ -42,6 +42,7 @@ namespace SeniorProject
             this.isGroupSelected = false;
             this.messages = new();
             this.GroupNames = new();
+            this.UsernameLabel.Text = "Team Chat";
         }
 
         private void Button_Click_AddMember(object sender, RoutedEventArgs e)
@@ -77,12 +78,14 @@ namespace SeniorProject
             //App.Current.Properties["Username"] = null;
             MainWindow login = new MainWindow();
             login.Show();
+            System.Threading.Thread.Sleep(200);
             this.Close();
         }
         private void Button_Click_Home(object sender, RoutedEventArgs e)
         {
             this.Home.checkForPendingFriendRequests();
             this.Home.Show();
+            System.Threading.Thread.Sleep(200);
             this.Close();
         }
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
@@ -136,6 +139,7 @@ namespace SeniorProject
         {
             ChatScreen chatWin = new();
             chatWin.Show();
+            System.Threading.Thread.Sleep(200);
             this.Close();
         }
 
@@ -293,6 +297,22 @@ namespace SeniorProject
                     MessageBox.Show(e.Message);
                 }
             });
+        }
+
+        private void Button_Click_Refresh(object sender, RoutedEventArgs e)
+        {
+            TeamChatScreen refresh = new();
+            refresh.Show();
+            System.Threading.Thread.Sleep(200);
+            this.Close();
+        }
+
+        private void Button_Click_Settings(object sender, RoutedEventArgs e)
+        {
+            SettingsMenu setting = new();
+            setting.Show();
+            System.Threading.Thread.Sleep(200);
+            this.Close();
         }
     }
 }
