@@ -142,7 +142,7 @@
                        FontFamily="Segoe UI"
                        Margin="65,0,0,0"/>
 
-                    <TextBox x:Name="UsernameRegister" Margin="10,0,0,0" Cursor="IBeam" IsReadOnly="false" Height="22" Width="175" Background="DarkGray"/>
+                    <TextBox Template="{StaticResource TextBoxRoundedCorners}" x:Name="UsernameRegister" Margin="10,0,0,0" Cursor="IBeam" IsReadOnly="false" Height="22" Width="175" Background="DarkGray"/>
 
                 </StackPanel>
 
@@ -154,7 +154,7 @@
                        FontFamily="Segoe UI"
                        Margin="68,0,0,0"/>
 
-                    <TextBox x:Name="PasswordRegister" Margin="12,0,0,0" Cursor="IBeam" IsReadOnly="false" Height="22" Width="175" Background="DarkGray"/>
+                    <TextBox Template="{StaticResource TextBoxRoundedCorners}" x:Name="PasswordRegister" Margin="12,0,0,0" Cursor="IBeam" IsReadOnly="false" Height="22" Width="175" Background="DarkGray"/>
 
                 </StackPanel>
 
@@ -166,7 +166,7 @@
                        FontFamily="Segoe UI"
                        Margin="0,0,0,0"/>
 
-                    <TextBox x:Name="ConfirmPassWordText" Margin="10,0,0,0" Cursor="IBeam" IsReadOnly="false" Height="20" Width="175" Background="DarkGray"/>
+                    <TextBox Template="{StaticResource TextBoxRoundedCorners}" x:Name="ConfirmPassWordText" Margin="10,0,0,0" Cursor="IBeam" IsReadOnly="false" Height="22" Width="175" Background="DarkGray"/>
 
                 </StackPanel>
 

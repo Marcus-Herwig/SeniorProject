@@ -40,7 +40,7 @@ namespace SeniorProject
             this.client = new TableClient(new Uri(this.AzureStorageConnectionString), "Accounts", new TableSharedKeyCredential(this.StorageAccountName, this.AzureStorageKey));
             this.CreateFriendList();
             this.CurrFriend = null;
-            this.UsernameLabel.Text = "Chat";
+            this.UsernameLabel.Text = App.Current.Properties["Username"].ToString();
         }
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
@@ -130,17 +130,17 @@ namespace SeniorProject
                         {
                             if (chat.GetString("Sender") == App.Current.Properties["Username"].ToString() && chat.GetString("Reciever") == this.CurrFriend)
                             {
-                                if (!this.sentMessagesHash.Contains(chat.GetString("Message")))
+                                if (!this.sentMessagesHash.Contains(chat.GetString("TimeSent")))
                                 {
                                     this.Dispatcher.Invoke(() =>
                                     {
                                         TextBox text = new TextBox();
-                                        text.Height = 30;
+                                        text.Height = 35;
                                         text.TextWrapping = TextWrapping.Wrap;
                                         text.Margin = new Thickness(0, 15, 15, 0);
                                         text.HorizontalAlignment = HorizontalAlignment.Right;
-                                        text.Background = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#161554"));
-                                        text.FontSize = 23;
+                                        text.Background = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#05083d"));
+                                        text.FontSize = 29;
                                         text.MaxWidth = 500;
                                         text.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("White"));
                                         text.Text = chat.GetString("Message");
@@ -148,15 +148,15 @@ namespace SeniorProject
                                         text.BorderBrush = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("Transparent"));
                                         text.BorderThickness = new Thickness(0);
                                         this.ChatMessages.Children.Add(text);
-                                        this.sentMessagesHash.Add(chat.GetString("Message"));
+                                        this.sentMessagesHash.Add(chat.GetString("TimeSent"));
 
 
                                         Label time = new Label();
-                                        time.Height = 23;
+                                        time.Height = 26;
                                         time.Margin = new Thickness(0, 0, 15, 0);
                                         time.HorizontalAlignment = HorizontalAlignment.Right;
-                                        time.Background = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#161554"));
-                                        time.FontSize = 11;
+                                        time.Background = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#05083d"));
+                                        time.FontSize = 14;
                                         time.MaxWidth = 500;
                                         time.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("White"));
                                         time.Content = chat.GetString("TimeSent");
@@ -168,17 +168,17 @@ namespace SeniorProject
                             }
                             else if (chat.GetString("Sender") == this.CurrFriend && chat.GetString("Reciever") == App.Current.Properties["Username"].ToString())
                             {
-                                if (!this.recievedMessagesHash.Contains(chat.GetString("Message")))
+                                if (!this.recievedMessagesHash.Contains(chat.GetString("TimeSent")))
                                 {
                                     this.Dispatcher.Invoke(() =>
                                     {
                                         TextBox text = new TextBox();
-                                        text.Height = 30;
+                                        text.Height = 35;
                                         text.TextWrapping = TextWrapping.Wrap;
                                         text.Margin = new Thickness(15, 15, 0, 0);
                                         text.HorizontalAlignment = HorizontalAlignment.Left;
-                                        text.Background = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#161554"));
-                                        text.FontSize = 23;
+                                        text.Background = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#05083d"));
+                                        text.FontSize = 29;
                                         text.MaxWidth = 500;
                                         text.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("White"));
                                         text.Text = chat.GetString("Message");
@@ -186,14 +186,14 @@ namespace SeniorProject
                                         text.BorderThickness = new Thickness(0);
                                         text.BorderBrush = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("Transparent"));
                                         this.ChatMessages.Children.Add(text);
-                                        this.recievedMessagesHash.Add(chat.GetString("Message"));
+                                        this.recievedMessagesHash.Add(chat.GetString("TimeSent"));
 
                                         Label time = new Label();
-                                        time.Height = 23;
+                                        time.Height = 26;
                                         time.Margin = new Thickness(15, 0, 0, 0);
                                         time.HorizontalAlignment = HorizontalAlignment.Left;
-                                        time.Background = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#161554"));
-                                        time.FontSize = 11;
+                                        time.Background = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#05083d"));
+                                        time.FontSize = 14;
                                         time.MaxWidth = 500;
                                         time.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("White"));
                                         time.Content = chat.GetString("TimeSent");

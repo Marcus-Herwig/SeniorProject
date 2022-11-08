@@ -10,6 +10,27 @@
         WindowStartupLocation="CenterScreen"
         Background="#05083d"
         ResizeMode="NoResize">
+    <Window.Resources>
+        <ControlTemplate x:Key="TextBoxRoundedCorners" TargetType="{x:Type TextBoxBase}">
+            <Border Background="{TemplateBinding Background}" 
+                x:Name="Bd" BorderBrush="Black"
+                BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10">
+                <ScrollViewer x:Name="PART_ContentHost"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" TargetName="Bd"/>
+                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                </Trigger>
+                <Trigger Property="Width" Value="Auto">
+                    <Setter Property="MinWidth" Value="100"/>
+                </Trigger>
+                <Trigger Property="Height" Value="Auto">
+                    <Setter Property="MinHeight" Value="20"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Window.Resources>
 
     <Grid>
 
@@ -31,7 +52,16 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <TextBox x:Name="WelcomeBox" Text=""
+            <Image Width="50" Height="50"
+                       Source="Images/chat.png"
+                       Margin="10,0,0,0"
+                           RenderOptions.BitmapScalingMode="Fant"
+                   Grid.Column="0"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Left"
+                       />
+
+            <Label x:Name="WelcomeBox" Content=""
                        Foreground="White"
                        Grid.Column="0"
                        VerticalAlignment="Center"
@@ -39,7 +69,7 @@
                        FontFamily="Segoe UI"
                        FontWeight="Medium"
                        FontSize="24"
-                       Margin="20,0,0,0"
+                       Margin="70,0,0,0"
                      Background="Transparent"
                      BorderBrush="Transparent"
                        />
@@ -306,8 +336,7 @@
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="830"/>
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Row="0"
@@ -318,9 +347,9 @@
 
 
                     <StackPanel x:Name="FriendsList">
-                        
+
                     </StackPanel>
-                    
+
 
                 </ScrollViewer>
 
@@ -335,86 +364,130 @@
                 </ScrollViewer>
 
             </StackPanel>
-            
-            <StackPanel Grid.Row="1"
-                        Grid.ColumnSpan="3"
-                    Orientation="Horizontal">
 
-
-                <Label Content="Search for friends: " Foreground="White" Margin="5,0" FontFamily="Segoe UI" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-
-                <TextBox x:Name="FriendSearch" Text="" Foreground="White" Background="DarkGray" Margin="0,4,0,0" Height="50" Width="300" FontFamily="Segoe UI" VerticalAlignment="Center" FontSize="18"/>
-
-                <Button Content="Add Friend"
+            <Label VerticalAlignment="Top" FontFamily="Segoe UI" FontSize="32" Content="Search for Friends" FontWeight="Medium" Foreground="White" Margin="240,10,0,0" Grid.Column="1" HorizontalAlignment="Center"/>
+            <Button Content="Search"
                         Foreground="White"
                         FontSize="14"
                         FontWeight="Medium"
-                        Margin="10,0,0,0"
+                        Margin="0,70,120,0"
+                    HorizontalAlignment="Center"
+                        VerticalAlignment="top"
+                    Grid.Column="1"
+                    Click="Button_Click_SearchUsernames">
+
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="Segoe UI"/>
+                        <Setter Property="Background" Value="#FE6584"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF4C70"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="150" Height="50" CornerRadius="14"
+                                    Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+
+            </Button>
+            <TextBox Template="{StaticResource TextBoxRoundedCorners}" x:Name="UsernameSearch" Text="" Foreground="White" Background="DarkGray" Margin="400,70,0,0" Height="50" Width="350" FontFamily="Segoe UI" VerticalAlignment="Top" FontSize="18" Grid.Column="1"/>
+            <ScrollViewer Height="400" Width="500" Background="#161554" Margin="250,120,0,0" Grid.Column="1">
+
+
+                <ListBox x:Name="SearchResults" Background="Transparent" BorderBrush="#030526"/>
+
+
+            </ScrollViewer>
+
+            <StackPanel Grid.Row="1"
+                        Grid.ColumnSpan="2"
+                    Orientation="Vertical">
+
+                <Label x:Name="FriendSearch" Content="" Foreground="White" Margin="620,0,0,0" Height="50" Width="400" FontFamily="Segoe UI" VerticalAlignment="Center" FontSize="24" BorderBrush="#161554"/>
+
+                <StackPanel Orientation="Horizontal" Margin="0,20">
+
+                    <Button Content="Add Friend"
+                        Foreground="White"
+                        FontSize="14"
+                        FontWeight="Medium"
+                        Margin="745,0,0,0"
                     HorizontalAlignment="Right"
                         VerticalAlignment="Center"
                     Click="Button_Click_AddFriends">
 
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="TextElement.FontFamily" Value="Segoe UI"/>
-                            <Setter Property="Background" Value="#FE6584"/>
-                            <Setter Property="Cursor" Value="Hand"/>
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="TextElement.FontFamily" Value="Segoe UI"/>
+                                <Setter Property="Background" Value="#FE6584"/>
+                                <Setter Property="Cursor" Value="Hand"/>
 
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#FF4C70"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#FF4C70"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
 
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Width="200" Height="50" CornerRadius="14"
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="150" Height="50" CornerRadius="14"
                                     Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
+                                    <ContentPresenter VerticalAlignment="Center"
                                                   HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
 
-                </Button>
+                    </Button>
 
-                <Button Content="Remove Friend"
+                    <Button Content="Remove Friend"
                         Foreground="White"
                         FontSize="14"
                         FontWeight="Medium"
-                        Margin="10,0,0,0"
+                        Margin="35,0,0,0"
                     HorizontalAlignment="Right"
                         VerticalAlignment="Center"
                     Click="Button_Click_RemoveFriend">
 
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="TextElement.FontFamily" Value="Segoe UI"/>
-                            <Setter Property="Background" Value="#FE6584"/>
-                            <Setter Property="Cursor" Value="Hand"/>
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="TextElement.FontFamily" Value="Segoe UI"/>
+                                <Setter Property="Background" Value="#FE6584"/>
+                                <Setter Property="Cursor" Value="Hand"/>
 
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#FF4C70"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#FF4C70"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
 
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Width="200" Height="50" CornerRadius="14"
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="150" Height="50" CornerRadius="14"
                                     Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
+                                    <ContentPresenter VerticalAlignment="Center"
                                                   HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
 
-                </Button>
-
+                    </Button>
+                </StackPanel>
             </StackPanel>
 
         </Grid>

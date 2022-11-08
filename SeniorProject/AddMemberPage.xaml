@@ -89,7 +89,7 @@
                        FontFamily="Segoe UI"
                        Margin="50,0,0,0"/>
 
-                    <TextBox x:Name="MemberUsername" Margin="10,0,0,0" Cursor="IBeam" IsReadOnly="false" Height="22" Width="175" Background="DarkGray"/>
+                    <TextBox Template="{StaticResource TextBoxRoundedCorners}" x:Name="MemberUsername" Margin="10,0,0,0" Cursor="IBeam" IsReadOnly="false" Height="22" Width="175" Background="DarkGray"/>
 
                 </StackPanel>
 

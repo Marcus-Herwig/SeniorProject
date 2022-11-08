@@ -11,8 +11,9 @@
         <SolidColorBrush x:Key="Item.SelectedActive.Border" Color="#090c3b"/>
         <SolidColorBrush x:Key="Item.SelectedInactive.Background" Color="#090c3b"/>
         <SolidColorBrush x:Key="Item.SelectedInactive.Border" Color="#090c3b"/>
+        
         <ControlTemplate x:Key="ListBoxItemTemplate" TargetType="{x:Type ListBoxItem}">
-            <Border x:Name="Bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+            <Border x:Name="Bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
                 <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
             </Border>
             <ControlTemplate.Triggers>
@@ -44,8 +45,27 @@
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
-        
-        
-        
+
+            <ControlTemplate x:Key="TextBoxRoundedCorners" TargetType="{x:Type TextBoxBase}">
+                <Border Background="{TemplateBinding Background}" 
+                x:Name="Bd" BorderBrush="Black"
+                BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10">
+                    <ScrollViewer x:Name="PART_ContentHost"/>
+                </Border>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" TargetName="Bd"/>
+                        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                    </Trigger>
+                    <Trigger Property="Width" Value="Auto">
+                        <Setter Property="MinWidth" Value="100"/>
+                    </Trigger>
+                    <Trigger Property="Height" Value="Auto">
+                        <Setter Property="MinHeight" Value="20"/>
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+
+
     </Application.Resources>
 </Application>

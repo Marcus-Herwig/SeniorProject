@@ -42,7 +42,7 @@ namespace SeniorProject
             this.isGroupSelected = false;
             this.messages = new();
             this.GroupNames = new();
-            this.UsernameLabel.Text = "Team Chat";
+            this.UsernameLabel.Text = App.Current.Properties["Username"].ToString();
         }
 
         private void Button_Click_AddMember(object sender, RoutedEventArgs e)

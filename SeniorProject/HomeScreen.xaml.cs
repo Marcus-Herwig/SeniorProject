@@ -27,6 +27,8 @@ namespace SeniorProject
         string StorageAccountName;
         public HashSet<string> addedFriends = new HashSet<string>();
         public HashSet<string> PendingFriends = new HashSet<string>();
+        HashSet<string> selfCheck = new();
+        string? selectedUsername;
         public HomeScreen()
         {
             InitializeComponent();
@@ -39,18 +41,32 @@ namespace SeniorProject
 
         public async void checkForPendingFriendRequests()
         {
+            HashSet<string> myFriends = new();
+            HashSet<string> theirFriends = new();
             try
             {
-                this.WelcomeBox.Text = "Welcome " + App.Current.Properties["Username"];
+                this.WelcomeBox.Content = "Welcome " + App.Current.Properties["Username"];
                 await Task.Run(() =>
                 {
-                    for(; ; )
+                    for (; ; )
                     {
                         Pageable<TableEntity> queryForMyFriend = this.client.Query<TableEntity>(filter: $"RowKey eq '{App.Current.Properties["Username"]}Friend'");
                         foreach (TableEntity self in queryForMyFriend)
                         {
+                            bool CreateUIElement = true;
                             Pageable<TableEntity> queryForTheirFriend = this.client.Query<TableEntity>(filter: $"RowKey eq '{self.GetString("FriendUsername")}Friend'");
                             if (queryForTheirFriend.Count() == 0)
+                            {
+                                CreateUIElement = false;
+                            }
+                            foreach (TableEntity friendCheck in queryForTheirFriend)
+                            {
+                                if (friendCheck.GetString("FriendUsername") == App.Current.Properties["Username"].ToString())
+                                {
+                                    CreateUIElement = false;
+                                }
+                            }
+                            if (CreateUIElement == true)
                             {
                                 this.Dispatcher.Invoke(() =>
                                 {
@@ -63,58 +79,41 @@ namespace SeniorProject
                                         this.PendingFriendRequests.Children.Add(labelTemplate);
                                         PendingFriends.Add(self.GetString("FriendUsername"));
                                     }
-
                                 });
                             }
-                            else
+                            foreach (TableEntity friend in queryForTheirFriend)
                             {
-                                foreach (TableEntity friend in queryForTheirFriend)
+                                if (self.GetString("FriendUsername") == friend.GetString("Username") && self.GetString("Username") == friend.GetString("FriendUsername"))
                                 {
-                                    if (self.GetString("FriendUsername") == friend.GetString("Username") && self.GetString("Username") == friend.GetString("FriendUsername"))
+                                    this.Dispatcher.Invoke(() =>
                                     {
-                                        this.Dispatcher.Invoke(() =>
+                                        if (!addedFriends.Contains(self.GetString("FriendUsername")))
                                         {
-                                            if (!addedFriends.Contains(self.GetString("FriendUsername")))
-                                            {
-                                                Label labelTemplate = new Label();
-                                                labelTemplate.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("White"));
-                                                labelTemplate.FontSize = 20;
-                                                labelTemplate.Content = self.GetString("FriendUsername");
-                                                this.FriendsList.Children.Add(labelTemplate);
-                                                addedFriends.Add(self.GetString("FriendUsername"));
-                                            }
-                                        });
-                                    }
+                                            Label labelTemplate = new Label();
+                                            labelTemplate.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("White"));
+                                            labelTemplate.FontSize = 20;
+                                            labelTemplate.Content = self.GetString("FriendUsername");
+                                            this.FriendsList.Children.Add(labelTemplate);
+                                            addedFriends.Add(self.GetString("FriendUsername"));
+                                        }
+                                    });
                                 }
                             }
                         }
-                        Pageable<TableEntity> queryForRecievedRequests = this.client.Query<TableEntity>(filter: $"PartionKey ne 'Accounts'");
+                    
+                        myFriends.Clear();
+                        theirFriends.Clear();
+                        Pageable<TableEntity> queryForRecievedRequests = this.client.Query<TableEntity>(filter: $"PartitionKey ne 'Account'");
                         foreach (TableEntity recieved in queryForRecievedRequests)
                         {
-                            if (recieved.GetString("FriendUsername") == App.Current.Properties["Username"].ToString())
+                            if (recieved.GetString("FriendUsername") == App.Current.Properties["Username"].ToString() && recieved.GetString("Username") != App.Current.Properties["Username"].ToString())
                             {
-                                if (queryForMyFriend.Count() > 0)
+                                foreach (TableEntity Check in queryForMyFriend)
                                 {
-                                    foreach (TableEntity selfcheck in queryForMyFriend)
-                                    {
-                                        if (selfcheck.GetString("FriendUsername") != recieved.GetString("Username"))
-                                        {
-                                            this.Dispatcher.Invoke(() =>
-                                            {
-                                                if (!PendingFriends.Contains(recieved.GetString("Username")))
-                                                {
-                                                    Label labelTemplate = new Label();
-                                                    labelTemplate.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("White"));
-                                                    labelTemplate.FontSize = 20;
-                                                    labelTemplate.Content = recieved.GetString("Username") + " (Added you)";
-                                                    this.PendingFriendRequests.Children.Add(labelTemplate);
-                                                    PendingFriends.Add(recieved.GetString("Username"));
-                                                }
-                                            });
-                                        }
-                                    }
+                                    this.selfCheck.Add(Check.GetString("FriendUsername"));
                                 }
-                                else
+
+                                if (!selfCheck.Contains(recieved.GetString("Username")))
                                 {
                                     this.Dispatcher.Invoke(() =>
                                     {
@@ -129,7 +128,8 @@ namespace SeniorProject
                                         }
                                     });
                                 }
-                            }
+                                this.selfCheck.Clear();
+                             }
                         }
                         System.Threading.Thread.Sleep(3000);
                     }
@@ -176,7 +176,7 @@ namespace SeniorProject
         { 
             try
             {
-                string friend = this.FriendSearch.Text;
+                string friend = this.FriendSearch.Content.ToString();
 
                 Pageable<TableEntity> queryResultsFilter = this.client.Query<TableEntity>(filter: $"PartitionKey eq 'Account' and RowKey eq '{friend}'");
                 foreach (TableEntity entity in queryResultsFilter)
@@ -190,17 +190,17 @@ namespace SeniorProject
                         };
                         //this.client.CreateIfNotExistsAsync();
                         this.client.AddEntity(newFriendEntity);
-                        this.FriendSearch.Text = "";
+                        this.FriendSearch.Content = "";
                     }
                     else
                     {
                         MessageBox.Show($"The username ({friend}) you are trying to add could not be found! ");
-                        this.FriendSearch.Text = "";
+                        this.FriendSearch.Content = "";
                         return;
                     }
-                }
+                }                                       
             }
-            catch (Exception ex)
+            catch
             {
                MessageBox.Show("Error: already added this username");
             }
@@ -221,7 +221,7 @@ namespace SeniorProject
 
         private void Button_Click_RemoveFriend(object sender, RoutedEventArgs e)
         {
-            string username = this.FriendSearch.Text;
+            string username = this.FriendSearch.Content.ToString();
             string myPartionKey = $"Friend{App.Current.Properties["Username"]}{username}";
             string myRowKey = $"{App.Current.Properties["Username"]}Friend";
             string friendPartionKey = $"Friend{username}{App.Current.Properties["Username"]}";
@@ -232,11 +232,11 @@ namespace SeniorProject
             {
                 this.client.DeleteEntityAsync(myPartionKey, myRowKey);
                 this.client.DeleteEntityAsync(friendPartionKey, friendRowKey);
-                this.FriendSearch.Text = "";
+                this.FriendSearch.Content = "";
             }
             else
             {
-                this.FriendSearch.Text = "";
+                this.FriendSearch.Content = "";
                 MessageBox.Show($"The username entered does not exist");
             }
         }
@@ -255,6 +255,93 @@ namespace SeniorProject
             setting.Show();
             System.Threading.Thread.Sleep(200);
             this.Close();
+        }
+
+        private bool CheckSimilarity(string a, string b)
+        {
+            int matchCount = 0;
+            int strikeCount = 0;
+            bool isMatch = false;
+            int length = 0;
+            if (a.Length == 0 || b.Length == 0)
+            {
+                return false;
+            }
+            if (a.Length > b.Length)
+            {
+                length = a.Length;
+            }
+            else if (a.Length < b.Length)
+            {
+                length = b.Length;
+            }
+            else if (a.Length == b.Length)
+            {
+                length = a.Length;
+            }
+
+            for (int i = 0; i < length; i++)
+            {
+                if (a.ElementAt(i).ToString().ToLower() == b.ElementAt(i).ToString().ToLower())
+                {
+                    matchCount++;
+                }
+                else
+                {
+                    strikeCount++;
+                }
+                if (matchCount == 3)
+                {
+                    isMatch = true;
+                }
+                if (strikeCount == 3)
+                {
+                    return false;
+                }
+                if (isMatch)
+                {
+                    return true;
+                }
+            }
+            return true;
+        }
+
+        private void Button_Click_SearchUsernames(object sender, RoutedEventArgs e)
+        {
+            this.SearchResults.Items.Clear();
+            Pageable<TableEntity> AccountQuery = this.client.Query<TableEntity>(filter: $"PartitionKey eq 'Account'");
+            string comparer = this.UsernameSearch.Text;
+            foreach (TableEntity entity in AccountQuery)
+            {
+                if (entity.GetString("Username") != App.Current.Properties["Username"].ToString())
+                {
+                    if (this.CheckSimilarity(entity.GetString("Username"), comparer) == true)
+                    {
+                        ListBoxItem labelTemplate = new ListBoxItem();
+                        labelTemplate.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("White"));
+                        labelTemplate.Background = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("Transparent"));
+                        labelTemplate.FontSize = 22;
+                        labelTemplate.Content = entity.GetString("Username");
+                        labelTemplate.Selected += ListBoxItem_SearchResults;
+                        this.SearchResults.Items.Add(labelTemplate);
+                        this.UsernameSearch.Text = "";
+                    }
+                }
+            }
+            this.UsernameSearch.Text = "";
+        }
+
+        private void ListBoxItem_SearchResults(object sender, RoutedEventArgs e)
+        {
+            this.FriendSearch.BorderThickness = new Thickness(2);
+            foreach (ListBoxItem item in this.SearchResults.Items)
+            {
+                if (item == sender)
+                {
+                    this.selectedUsername = (string)item.Content;
+                }
+            }
+            this.FriendSearch.Content = this.selectedUsername;
         }
     }
 }
