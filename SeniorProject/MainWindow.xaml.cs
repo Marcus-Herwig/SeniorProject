@@ -66,8 +66,10 @@ namespace SeniorProject
                     {
                         if (entity.GetString("Username").ToLower() == inputUsername.ToLower() && entity.GetString("Password") == inputPassword)
                         {
+                            App.Current.Properties["ProfilePicture"] = entity.GetString("ProfilePicID");
                             App.Current.Properties["Username"] = entity.GetString("Username");
                             HomeScreen MainMenu = new HomeScreen();
+                            MainMenu.ProfilePicture.Source = new BitmapImage(new Uri($@"{System.AppContext.BaseDirectory}\Images\{App.Current.Properties["ProfilePicture"]}"));
                             MainMenu.Show();
                             MainMenu.checkForPendingFriendRequests();
                             this.Close();

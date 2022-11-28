@@ -80,7 +80,8 @@ namespace SeniorProject
                         var entity = new TableEntity("Account", this.UsernameRegister.Text)
                         {
                             {"Username", this.UsernameRegister.Text },
-                            {"Password", this.PasswordRegister.Text }
+                            {"Password", this.PasswordRegister.Text },
+                            {"ProfilePicID", "DefaultPicture.png" }
                         };
                         this.client.CreateIfNotExistsAsync();
                         this.client.AddEntity(entity);

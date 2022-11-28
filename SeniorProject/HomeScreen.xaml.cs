@@ -157,6 +157,7 @@ namespace SeniorProject
         private void Button_Click_Chat(object sender, RoutedEventArgs e)
         {
             ChatScreen chatWin = new();
+            chatWin.ProfilePicture.Source = new BitmapImage(new Uri($@"{System.AppContext.BaseDirectory}\Images\{App.Current.Properties["ProfilePicture"]}"));
             chatWin.Show();
             System.Threading.Thread.Sleep(200);
             this.Close();
@@ -212,7 +213,7 @@ namespace SeniorProject
         private void Button_Click_Refresh(object sender, RoutedEventArgs e)
         {
             HomeScreen newMain = new HomeScreen();
-            
+            newMain.ProfilePicture.Source = new BitmapImage(new Uri($@"{System.AppContext.BaseDirectory}\Images\{App.Current.Properties["ProfilePicture"]}"));
             newMain.checkForPendingFriendRequests();
             newMain.Show();
             System.Threading.Thread.Sleep(200);
@@ -244,6 +245,7 @@ namespace SeniorProject
         private void Button_Click_Teams(object sender, RoutedEventArgs e)
         {
             TeamChatScreen teamScreen = new TeamChatScreen();
+            teamScreen.ProfilePicture.Source = new BitmapImage(new Uri($@"{System.AppContext.BaseDirectory}\Images\{App.Current.Properties["ProfilePicture"]}"));
             teamScreen.Show();
             System.Threading.Thread.Sleep(200);
             this.Close();
@@ -252,6 +254,7 @@ namespace SeniorProject
         private void Button_Click_Settings(object sender, RoutedEventArgs e)
         {
             SettingsMenu setting = new();
+            setting.ProfilePicture.Source = new BitmapImage(new Uri($@"{System.AppContext.BaseDirectory}\Images\{App.Current.Properties["ProfilePicture"]}"));
             setting.Show();
             System.Threading.Thread.Sleep(200);
             this.Close();

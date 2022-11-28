@@ -10,8 +10,17 @@
 
   <ItemGroup>
     <None Remove="Fonts\password.ttf" />
+    <None Remove="Images\batman.png" />
     <None Remove="Images\Chat.png" />
+    <None Remove="Images\DarthVader.png" />
+    <None Remove="Images\DefaultPicture.png" />
+    <None Remove="Images\Jessie.jpg" />
+    <None Remove="Images\kenobi-avatar.png" />
+    <None Remove="Images\Kratos.jpg" />
+    <None Remove="Images\Mando.png" />
+    <None Remove="Images\MasterChief.jpg" />
     <None Remove="Images\sendArrow.png" />
+    <None Remove="Images\WalterWhite.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,8 +39,17 @@
 
   <ItemGroup>
     <Resource Include="Fonts\password.ttf" />
+    <Resource Include="Images\batman.png" />
     <Resource Include="Images\Chat.png" />
+    <Resource Include="Images\DarthVader.png" />
+    <Resource Include="Images\DefaultPicture.png" />
+    <Resource Include="Images\Jessie.jpg" />
+    <Resource Include="Images\kenobi-avatar.png" />
+    <Resource Include="Images\Kratos.jpg" />
+    <Resource Include="Images\Mando.png" />
+    <Resource Include="Images\MasterChief.jpg" />
     <Resource Include="Images\sendArrow.png" />
+    <Resource Include="Images\WalterWhite.png" />
   </ItemGroup>
 
 </Project>

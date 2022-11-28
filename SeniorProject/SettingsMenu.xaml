@@ -53,6 +53,13 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
+            <Image x:Name="ProfilePicture" Width="50" Height="50"
+                       Margin="10,0,0,0"
+                           RenderOptions.BitmapScalingMode="Fant"
+                   Grid.Column="0"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Left"
+                       />
             <TextBox x:Name="WelcomeBox" Text=""
                        Foreground="White"
                        Grid.Column="0"
@@ -61,7 +68,7 @@
                        FontFamily="Segoe UI"
                        FontWeight="Medium"
                        FontSize="24"
-                       Margin="20,0,0,0"
+                       Margin="80,0,0,0"
                      Background="Transparent"
                      BorderBrush="Transparent"
                        />
@@ -329,6 +336,7 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Row="0"
@@ -450,10 +458,54 @@
                     </Button.Template>
 
                 </Button>
+                
+                
 
             </StackPanel>
 
-            <Grid Grid.Row="1" Grid.ColumnSpan="3" Margin="80,225,80,40" x:Name="ChangeUsername" Visibility="hidden">
+            <StackPanel Grid.Row="0"
+                        Grid.Column="3">
+
+                <Button Content="Change Profile Picture"
+                        Foreground="White"
+                        FontSize="20"
+                        FontWeight="Medium"
+                        Margin="0,100,0,0"
+                    HorizontalAlignment="Center"
+                    Grid.Column="6"
+                    Grid.ColumnSpan="3" Click="Button_Click_ShowChangeProfilePicture">
+
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="TextElement.FontFamily" Value="Segoe UI"/>
+                            <Setter Property="Background" Value="#FE6584"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#FF4C70"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="225" Height="75" CornerRadius="14"
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+
+                </Button>
+
+
+
+            </StackPanel>
+
+            <Grid Grid.Row="1" Grid.ColumnSpan="4" Margin="80,225,80,40" x:Name="ChangeUsername" Visibility="Hidden">
                 <Border BorderBrush="Gray" BorderThickness="1"/>
                 <StackPanel Background="#030526" Height="40" Orientation="Horizontal" VerticalAlignment="Top">
                     <Label Content="Change Username" Foreground="White" FontSize="20" Margin="20,0"/>
@@ -542,7 +594,120 @@
 
             </Grid>
 
-            <Grid Grid.Row="1" Grid.ColumnSpan="3" Margin="80,225,80,40" x:Name="ChangePassword" Visibility="Hidden"
+            <Grid Grid.Row="1" Grid.ColumnSpan="4" Margin="80,225,80,40" x:Name="ChangeProfilePic" Visibility="Hidden">
+                <Border BorderBrush="Gray" BorderThickness="1"/>
+                <StackPanel Background="#030526" Height="40" Orientation="Horizontal" VerticalAlignment="Top">
+                    <Label Content="Choose Profile Picture" Foreground="White" FontSize="20" Margin="20,0"/>
+                </StackPanel>
+
+                <StackPanel x:Name="PicturePanel" Orientation="Horizontal" Margin="0,45,0,0">
+
+                    <Button x:Name="DefaultPic" Click="Button_ClickDefaultPic" Background="Transparent" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20,20,0,0" BorderBrush="Transparent" BorderThickness="2" Cursor="Hand">
+                        <Image Width="75" Height="75"
+                           Source="Images\DefaultPicture.png"
+                           RenderOptions.BitmapScalingMode="Fant"
+                       />
+                    </Button>
+
+                    <Button x:Name="kenobi" Click="Button_ClickKenobi" Background="Transparent" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="35,20,0,0" BorderBrush="Transparent" BorderThickness="2" Cursor="Hand">
+                        <Image Width="75" Height="75"
+                           Source="Images\kenobi-avatar.png"
+                           RenderOptions.BitmapScalingMode="Fant"
+                       />
+                    </Button>
+
+                    <Button x:Name="Vader" Click="Button_ClickVader" Background="Transparent" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="35,20,0,0" BorderBrush="Transparent" BorderThickness="2" Cursor="Hand">
+                        <Image Width="75" Height="75"
+                           Source="Images\DarthVader.png"
+                           RenderOptions.BitmapScalingMode="Fant"
+                       />
+                    </Button>
+
+                    <Button x:Name="Mando" Click="Button_ClickMando" Background="Transparent" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="35,20,0,0" BorderBrush="Transparent" BorderThickness="2" Cursor="Hand">
+                        <Image Width="75" Height="75"
+                           Source="Images\Mando.png"
+                           RenderOptions.BitmapScalingMode="Fant"
+                       />
+                    </Button>
+
+                    <Button x:Name="batman" Click="Button_Clickbatman" Background="Transparent" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="35,20,0,0" BorderBrush="Transparent" BorderThickness="2" Cursor="Hand">
+                        <Image Width="75" Height="75"
+                           Source="Images\batman.png"
+                           RenderOptions.BitmapScalingMode="Fant"
+                       />
+                    </Button>
+
+                    <Button x:Name="MasaterChief" Click="Button_ClickMasterChief" Background="Transparent" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="35,20,0,0" BorderBrush="Transparent" BorderThickness="2" Cursor="Hand">
+                        <Image Width="75" Height="75"
+                           Source="Images\MasterChief.jpg"
+                           RenderOptions.BitmapScalingMode="Fant"
+                       />
+                    </Button>
+
+                    <Button x:Name="Kratos" Click="Button_ClickKratos" Background="Transparent" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="35,20,0,0" BorderBrush="Transparent" BorderThickness="2" Cursor="Hand">
+                        <Image Width="75" Height="75"
+                           Source="Images\Kratos.jpg"
+                           RenderOptions.BitmapScalingMode="Fant"
+                       />
+                    </Button>
+
+                    <Button x:Name="Walter" Click="Button_ClickWalter" Background="Transparent" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="35,20,0,0" BorderBrush="Transparent" BorderThickness="2" Cursor="Hand">
+                        <Image Width="75" Height="75"
+                           Source="Images\WalterWhite.png"
+                           RenderOptions.BitmapScalingMode="Fant"
+                       />
+                    </Button>
+
+                    <Button x:Name="Jessie" Click="Button_ClickJessie" Background="Transparent" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="35,20,0,0" BorderBrush="Transparent" BorderThickness="2" Cursor="Hand">
+                        <Image Width="75" Height="75"
+                           Source="Images\Jessie.jpg"
+                           RenderOptions.BitmapScalingMode="Fant"
+                       />
+                    </Button>
+
+                </StackPanel>
+                <Label x:Name="ProfileMessenger" VerticalAlignment="Bottom" HorizontalAlignment="Center" Content="" Foreground="Yellow" FontSize="30" Margin="0,0,0,75"/>
+
+                <Button Content="Change"
+                        Foreground="White"
+                        FontSize="20"
+                        FontWeight="Medium"
+                        Margin="0,0,0,20"
+                    HorizontalAlignment="Center"
+                        VerticalAlignment="Bottom"
+                    Grid.Column="6"
+                    Grid.ColumnSpan="3" Click="Button_Click_ChangePicture">
+
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="TextElement.FontFamily" Value="Segoe UI"/>
+                            <Setter Property="Background" Value="#FE6584"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#FF4C70"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="150" Height="50" CornerRadius="14"
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+
+                </Button>
+                
+            </Grid>
+
+
+            <Grid Grid.Row="1" Grid.ColumnSpan="4" Margin="80,225,80,40" x:Name="ChangePassword" Visibility="Hidden"
                   >
                 <Border BorderBrush="Gray" BorderThickness="1"/>
                 <StackPanel Background="#030526" Height="40" Orientation="Horizontal" VerticalAlignment="Top">
@@ -632,7 +797,7 @@
 
             </Grid>
 
-            <Grid Grid.Row="1" Grid.ColumnSpan="3" Margin="80,225,80,40" x:Name="DeleteAccount" Visibility="hidden">
+            <Grid Grid.Row="1" Grid.ColumnSpan="4" Margin="80,225,80,40" x:Name="DeleteAccount" Visibility="hidden">
                 <Border BorderBrush="Gray" BorderThickness="1"/>
                 <StackPanel Background="#030526" Height="40" Orientation="Horizontal" VerticalAlignment="Top">
                     <Label Content="Delete Account" Foreground="White" FontSize="20" Margin="20,0"/>

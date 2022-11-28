@@ -94,6 +94,7 @@ namespace SeniorProject
         {
             this.friendIsSelected = false;
             this.Home.Show();
+            this.Home.ProfilePicture.Source = new BitmapImage(new Uri($@"{System.AppContext.BaseDirectory}\Images\{App.Current.Properties["ProfilePicture"]}"));
             this.Home.checkForPendingFriendRequests();
             System.Threading.Thread.Sleep(200);
             this.Close();
@@ -256,6 +257,7 @@ namespace SeniorProject
         private void Button_Click_Teams(object sender, RoutedEventArgs e)
         {
             TeamChatScreen teamScreen = new TeamChatScreen();
+            teamScreen.ProfilePicture.Source = new BitmapImage(new Uri($@"{System.AppContext.BaseDirectory}\Images\{App.Current.Properties["ProfilePicture"]}"));
             teamScreen.Show();
             System.Threading.Thread.Sleep(200);
             this.Close();
@@ -264,6 +266,7 @@ namespace SeniorProject
         private void Button_Click_Settings(object sender, RoutedEventArgs e)
         {
             SettingsMenu setting = new();
+            setting.ProfilePicture.Source = new BitmapImage(new Uri($@"{System.AppContext.BaseDirectory}\Images\{App.Current.Properties["ProfilePicture"]}"));
             setting.Show();
             System.Threading.Thread.Sleep(200);
             this.Close();

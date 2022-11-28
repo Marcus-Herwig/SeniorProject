@@ -69,6 +69,7 @@ namespace SeniorProject
         {
             LeaveGroupPopup leave = new(this.GroupName.Content.ToString());
             TeamChatScreen refresh = new();
+            refresh.ProfilePicture.Source = new BitmapImage(new Uri($@"{System.AppContext.BaseDirectory}\Images\{App.Current.Properties["ProfilePicture"]}"));
             refresh.Show();
             this.Close();
             leave.Show();
@@ -83,6 +84,7 @@ namespace SeniorProject
         }
         private void Button_Click_Home(object sender, RoutedEventArgs e)
         {
+            this.Home.ProfilePicture.Source = new BitmapImage(new Uri($@"{System.AppContext.BaseDirectory}\Images\{App.Current.Properties["ProfilePicture"]}"));
             this.Home.checkForPendingFriendRequests();
             this.Home.Show();
             System.Threading.Thread.Sleep(200);
@@ -138,6 +140,7 @@ namespace SeniorProject
         private void Button_Click_Chat(object sender, RoutedEventArgs e)
         {
             ChatScreen chatWin = new();
+            chatWin.ProfilePicture.Source = new BitmapImage(new Uri($@"{System.AppContext.BaseDirectory}\Images\{App.Current.Properties["ProfilePicture"]}"));
             chatWin.Show();
             System.Threading.Thread.Sleep(200);
             this.Close();
@@ -254,16 +257,52 @@ namespace SeniorProject
                         Pageable<TableEntity> ChatQuery = this.client.Query<TableEntity>(filter: $"PartitionKey eq '{this.groupNameString}ChatEntity'");
                         foreach (TableEntity chat in ChatQuery)
                         {
+                            string imageName = "";
+                            Pageable<TableEntity> imageGetter = this.client.Query<TableEntity>(filter: "PartitionKey eq 'Account'");
+                            foreach (TableEntity entity in imageGetter)
+                            {
+                                if (entity.GetString("Username") == chat.GetString("Sender"))
+                                {
+                                    imageName = entity.GetString("ProfilePicID");
+                                    break;
+                                }
+                            }
                             if (!this.messages.Contains(chat.GetString("RowKey")))
                             {
                                 this.Dispatcher.Invoke(() =>
                                 {
+                                    StackPanel newChat = new();
+                                    newChat.Orientation = Orientation.Horizontal;
+                                    newChat.Margin = new Thickness(0, 20, 0, 0);
+
+                                    if (imageName != null && imageName != String.Empty)
+                                    {
+                                        Image profilePicture = new();
+                                        profilePicture.Source = new BitmapImage(new Uri($@"{System.AppContext.BaseDirectory}\Images\{imageName}"));
+                                        profilePicture.Height = 40;
+                                        profilePicture.Width = 40;
+                                        profilePicture.Margin = new Thickness(10, 5, 0, 0);
+                                        profilePicture.HorizontalAlignment = HorizontalAlignment.Left;
+                                        newChat.Children.Add(profilePicture);
+                                    }
+                                    else
+                                    {
+                                        Image profilePicture = new();
+                                        profilePicture.Source = new BitmapImage(new Uri($@"{System.AppContext.BaseDirectory}\Images\DefaultPicture.png"));
+                                        profilePicture.Height = 35;
+                                        profilePicture.Width = 35;
+                                        profilePicture.Margin = new Thickness(10, 5, 0, 0);
+                                        profilePicture.HorizontalAlignment = HorizontalAlignment.Left;
+                                        newChat.Children.Add(profilePicture);
+                                    }
+                                    
+
                                     TextBox text = new TextBox();
-                                    text.Height = 30;
+                                    text.Height = 36;
                                     text.TextWrapping = TextWrapping.Wrap;
-                                    text.Margin = new Thickness(15, 15, 0, 0);
+                                    text.Margin = new Thickness(5, 0, 0, 0);
                                     text.HorizontalAlignment = HorizontalAlignment.Left;
-                                    text.Background = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#161554"));
+                                    text.Background = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#05083d"));
                                     text.FontSize = 23;
                                     text.MaxWidth = 500;
                                     text.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("White"));
@@ -271,20 +310,23 @@ namespace SeniorProject
                                     text.IsReadOnly = true;
                                     text.BorderThickness = new Thickness(0);
                                     text.BorderBrush = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("Transparent"));
-                                    this.ChatMessages.Children.Add(text);
+                                    newChat.Children.Add(text);
                                     this.messages.Add(chat.GetString("RowKey"));
 
                                     Label time = new Label();
                                     time.Height = 23;
-                                    time.Margin = new Thickness(15, 0, 0, 0);
+                                    time.Margin = new Thickness(70, -10, 0, 0);
                                     time.HorizontalAlignment = HorizontalAlignment.Left;
-                                    time.Background = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#161554"));
+                                    time.Background = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#05083d"));
                                     time.FontSize = 11;
                                     time.MaxWidth = 500;
                                     time.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("White"));
                                     time.Content = chat.GetString("TimeSent");
                                     time.BorderBrush = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("Transparent"));
                                     time.BorderThickness = new Thickness(0);
+                                    
+
+                                    this.ChatMessages.Children.Add(newChat);
                                     this.ChatMessages.Children.Add(time);
                                 });
                             }
@@ -302,6 +344,7 @@ namespace SeniorProject
         private void Button_Click_Refresh(object sender, RoutedEventArgs e)
         {
             TeamChatScreen refresh = new();
+            refresh.ProfilePicture.Source = new BitmapImage(new Uri($@"{System.AppContext.BaseDirectory}\Images\{App.Current.Properties["ProfilePicture"]}"));
             refresh.Show();
             System.Threading.Thread.Sleep(200);
             this.Close();
@@ -310,6 +353,7 @@ namespace SeniorProject
         private void Button_Click_Settings(object sender, RoutedEventArgs e)
         {
             SettingsMenu setting = new();
+            setting.ProfilePicture.Source = new BitmapImage(new Uri($@"{System.AppContext.BaseDirectory}\Images\{App.Current.Properties["ProfilePicture"]}"));
             setting.Show();
             System.Threading.Thread.Sleep(200);
             this.Close();

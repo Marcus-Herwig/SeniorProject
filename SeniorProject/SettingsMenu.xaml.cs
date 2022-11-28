@@ -25,6 +25,7 @@ namespace SeniorProject
         string AzureStorageConnectionString;
         string AzureStorageKey;
         string StorageAccountName;
+        string? currentSelectedPicture;
         public SettingsMenu()
         {
             InitializeComponent();
@@ -34,6 +35,7 @@ namespace SeniorProject
             this.StorageAccountName = "seniorproject";
             this.client = new TableClient(new Uri(this.AzureStorageConnectionString), "Accounts", new TableSharedKeyCredential(this.StorageAccountName, this.AzureStorageKey));
             this.WelcomeBox.Text = "Settings";
+            this.currentSelectedPicture = null;
         }
 
         private void Button_Click_ShowChangeUsername(object sender, RoutedEventArgs e)
@@ -41,12 +43,13 @@ namespace SeniorProject
             this.Messenger.Content = "";
             this.DeleteAccount.Visibility = System.Windows.Visibility.Hidden;
             this.ChangePassword.Visibility = System.Windows.Visibility.Hidden;
+            this.ChangeProfilePic.Visibility = System.Windows.Visibility.Hidden;
             this.ChangeUsername.Visibility = System.Windows.Visibility.Visible;
         }
         private void Button_Click_Refresh(object sender, RoutedEventArgs e)
         {
-            HomeScreen newMain = new HomeScreen();
-            newMain.checkForPendingFriendRequests();
+            SettingsMenu newMain = new SettingsMenu();
+            newMain.ProfilePicture.Source = new BitmapImage(new Uri($@"{System.AppContext.BaseDirectory}\Images\{App.Current.Properties["ProfilePicture"]}"));
             newMain.Show();
             System.Threading.Thread.Sleep(200);
             this.Close();
@@ -67,6 +70,7 @@ namespace SeniorProject
         private void Button_Click_Chat(object sender, RoutedEventArgs e)
         {
             ChatScreen chatWin = new();
+            chatWin.ProfilePicture.Source = new BitmapImage(new Uri($@"{System.AppContext.BaseDirectory}\Images\{App.Current.Properties["ProfilePicture"]}"));
             chatWin.Show();
             System.Threading.Thread.Sleep(200);
             this.Close();
@@ -84,6 +88,7 @@ namespace SeniorProject
         private void Button_Click_Teams(object sender, RoutedEventArgs e)
         {
             TeamChatScreen teamScreen = new TeamChatScreen();
+            teamScreen.ProfilePicture.Source = new BitmapImage(new Uri($@"{System.AppContext.BaseDirectory}\Images\{App.Current.Properties["ProfilePicture"]}"));
             teamScreen.Show();
             System.Threading.Thread.Sleep(200);
             this.Close();
@@ -128,7 +133,8 @@ namespace SeniorProject
                             var newAccount = new TableEntity("Account", this.NewUsernameText.Text)
                             {
                                 {"Username", this.NewUsernameText.Text },
-                                {"Password", key }
+                                {"Password", key },
+                                {"ProfilePicID", App.Current.Properties["ProfilePicture"] }
                             };
                             this.client.DeleteEntityAsync("Account", App.Current.Properties["Username"].ToString());
                             this.client.AddEntityAsync(newAccount);
@@ -157,7 +163,7 @@ namespace SeniorProject
                                     this.client.DeleteEntityAsync(entry.GetString("PartitionKey"), entry.GetString("RowKey"));
                                     this.client.AddEntityAsync(NewFriendEntity);
                                 }
-
+          
                                 if (entry.GetString("Username") == App.Current.Properties["Username"].ToString() && entry.GetString("TeamID") is not null)
                                 {
                                     var NewMemberEntity = new TableEntity(entry.GetString("PartitionKey"), this.NewUsernameText.Text)
@@ -237,6 +243,7 @@ namespace SeniorProject
             this.MessengerChangePassword.Content = "";
             this.DeleteAccount.Visibility = System.Windows.Visibility.Hidden;
             this.ChangeUsername.Visibility = System.Windows.Visibility.Hidden;
+            this.ChangeProfilePic.Visibility = System.Windows.Visibility.Hidden;
             this.ChangePassword.Visibility = System.Windows.Visibility.Visible;
         }
         private void Button_Click_ChangePassword(object sender, RoutedEventArgs e)
@@ -263,13 +270,15 @@ namespace SeniorProject
                                         var newEntity = new TableEntity("Account", App.Current.Properties["Username"].ToString())
                                         {
                                             {"Username", App.Current.Properties["Username"] },
-                                            {"Password", this.ConfirmPassword.Text }
+                                            {"Password", this.ConfirmPassword.Text },
+                                            {"ProfilePicID", App.Current.Properties["ProfilePicture"] }
                                         };
+                                        this.client.AddEntityAsync(newEntity);
                                         this.CurrentPassword.Text = "";
                                         this.ConfirmPassword.Text = "";
                                         this.ConfirmPasswordChangeText.Text = "";
-                                        this.client.AddEntityAsync(newEntity);
                                         this.MessengerChangePassword.Content = "Password successfully changed";
+                                        System.Threading.Thread.Sleep(400);
                                         break;
                                     }
                                 }
@@ -301,6 +310,7 @@ namespace SeniorProject
         {
             this.MessengerDeleteAccount.Content = "";
             this.ChangeUsername.Visibility = System.Windows.Visibility.Hidden;
+            this.ChangeProfilePic.Visibility = System.Windows.Visibility.Hidden;
             this.ChangePassword.Visibility = System.Windows.Visibility.Hidden;
             this.DeleteAccount.Visibility = System.Windows.Visibility.Visible;
         }
@@ -366,10 +376,143 @@ namespace SeniorProject
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             HomeScreen Home = new();
+            Home.ProfilePicture.Source = new BitmapImage(new Uri($@"{System.AppContext.BaseDirectory}\Images\{App.Current.Properties["ProfilePicture"]}"));
             Home.checkForPendingFriendRequests();
             Home.Show();
             System.Threading.Thread.Sleep(200);
             this.Close();
+        }
+
+        private void Button_Click_ShowChangeProfilePicture(object sender, RoutedEventArgs e)
+        {
+            this.ChangeUsername.Visibility = System.Windows.Visibility.Hidden;
+            this.ChangePassword.Visibility = System.Windows.Visibility.Hidden;
+            this.DeleteAccount.Visibility = System.Windows.Visibility.Hidden;
+            this.ChangeProfilePic.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void Button_ClickKenobi(object sender, RoutedEventArgs e)
+        {
+            this.currentSelectedPicture = "kenobi-avatar.png";
+            foreach (Button element in this.PicturePanel.Children)
+            {
+                element.BorderBrush = Brushes.Transparent;
+            }
+            this.kenobi.BorderBrush = Brushes.LightBlue;
+        }
+        private void Button_ClickDefaultPic(object sender, RoutedEventArgs e)
+        {
+            this.currentSelectedPicture = "DefaultPicture.png";
+            foreach (Button element in this.PicturePanel.Children)
+            {
+                element.BorderBrush = Brushes.Transparent;
+            }
+            this.DefaultPic.BorderBrush = Brushes.LightBlue;
+        }
+        private void Button_ClickVader(object sender, RoutedEventArgs e)
+        {
+            this.currentSelectedPicture = "DarthVader.png";
+            foreach (Button element in this.PicturePanel.Children)
+            {
+                element.BorderBrush = Brushes.Transparent;
+            }
+            this.Vader.BorderBrush = Brushes.LightBlue;
+        }
+        private void Button_ClickMando(object sender, RoutedEventArgs e)
+        {
+            this.currentSelectedPicture = "Mando.png";
+            foreach (Button element in this.PicturePanel.Children)
+            {
+                element.BorderBrush = Brushes.Transparent;
+            }
+            this.Mando.BorderBrush = Brushes.LightBlue;
+        }
+        private void Button_Clickbatman(object sender, RoutedEventArgs e)
+        {
+            this.currentSelectedPicture = "batman.png";
+            foreach (Button element in this.PicturePanel.Children)
+            {
+                element.BorderBrush = Brushes.Transparent;
+            }
+            this.batman.BorderBrush = Brushes.LightBlue;
+        }
+        private void Button_ClickMasterChief(object sender, RoutedEventArgs e)
+        {
+            this.currentSelectedPicture = "MasterChief.jpg";
+            foreach (Button element in this.PicturePanel.Children)
+            {
+                element.BorderBrush = Brushes.Transparent;
+            }
+            this.MasaterChief.BorderBrush = Brushes.LightBlue;
+        }
+        private void Button_ClickKratos(object sender, RoutedEventArgs e)
+        {
+            this.currentSelectedPicture = "Kratos.jpg";
+            foreach (Button element in this.PicturePanel.Children)
+            {
+                element.BorderBrush = Brushes.Transparent;
+            }
+            this.Kratos.BorderBrush = Brushes.LightBlue;
+        }
+        private void Button_ClickWalter(object sender, RoutedEventArgs e)
+        {
+            this.currentSelectedPicture = "WalterWhite.png";
+            foreach (Button element in this.PicturePanel.Children)
+            {
+                element.BorderBrush = Brushes.Transparent;
+            }
+            this.Walter.BorderBrush = Brushes.LightBlue;
+        }
+        private void Button_ClickJessie(object sender, RoutedEventArgs e)
+        {
+            this.currentSelectedPicture = "Jessie.jpg";
+            foreach (Button element in this.PicturePanel.Children)
+            {
+                element.BorderBrush = Brushes.Transparent;
+            }
+            this.Jessie.BorderBrush = Brushes.LightBlue;
+        }
+
+        private void Button_Click_ChangePicture(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (this.currentSelectedPicture is not null or "")
+                {
+                    Pageable<TableEntity> query = this.client.Query<TableEntity>(filter: $"PartitionKey eq 'Account'");
+                    foreach (TableEntity entity in query)
+                    {
+                        if (entity.GetString("Username") == App.Current.Properties["Username"].ToString())
+                        {
+                            this.ProfileMessenger.Content = "";
+                            App.Current.Properties["ProfilePicture"] = this.currentSelectedPicture;
+                            var newAccountEntity = new TableEntity("Account", App.Current.Properties["Username"].ToString())
+                            {
+                                {"Username", entity.GetString("Username") },
+                                {"Password", entity.GetString("Password") },
+                                {"ProfilePicID", this.currentSelectedPicture }
+                            };
+                            this.client.DeleteEntityAsync("Account", entity.GetString("Username"));
+                            System.Threading.Thread.Sleep(400);
+                            this.client.AddEntityAsync(newAccountEntity);
+                            this.currentSelectedPicture = "";
+                            SettingsMenu newMenu = new();
+                            newMenu.ProfilePicture.Source = new BitmapImage(new Uri($@"{System.AppContext.BaseDirectory}\Images\{App.Current.Properties["ProfilePicture"]}"));
+                            newMenu.Show();
+                            System.Threading.Thread.Sleep(200);
+                            this.Close();
+                        }
+                    }
+                }
+                else
+                {
+                    this.ProfileMessenger.Content = "Please select a picture to change to";
+                }
+            }
+            catch (Exception ex)
+            {
+                this.ProfileMessenger.Content = ex.Message;
+            }
         }
     }
 }

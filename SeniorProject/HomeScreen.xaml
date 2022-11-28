@@ -52,8 +52,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Image Width="50" Height="50"
-                       Source="Images/chat.png"
+            <Image x:Name="ProfilePicture" Width="50" Height="50"
                        Margin="10,0,0,0"
                            RenderOptions.BitmapScalingMode="Fant"
                    Grid.Column="0"
@@ -322,9 +321,7 @@
                 </Button.Template>
 
             </Button>
-
-
-
+            
         </StackPanel>
 
         <Grid Grid.Row="1" Grid.Column="1">
