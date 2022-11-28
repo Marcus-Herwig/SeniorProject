@@ -136,7 +136,7 @@ namespace SeniorProject
                                     this.Dispatcher.Invoke(() =>
                                     {
                                         TextBox text = new TextBox();
-                                        text.Height = 35;
+                                        
                                         text.TextWrapping = TextWrapping.Wrap;
                                         text.Margin = new Thickness(0, 15, 15, 0);
                                         text.HorizontalAlignment = HorizontalAlignment.Right;
@@ -174,7 +174,7 @@ namespace SeniorProject
                                     this.Dispatcher.Invoke(() =>
                                     {
                                         TextBox text = new TextBox();
-                                        text.Height = 35;
+                                        
                                         text.TextWrapping = TextWrapping.Wrap;
                                         text.Margin = new Thickness(15, 15, 0, 0);
                                         text.HorizontalAlignment = HorizontalAlignment.Left;
@@ -205,7 +205,7 @@ namespace SeniorProject
                                 }
                             }
                         }
-                        System.Threading.Thread.Sleep(3000);
+                        System.Threading.Thread.Sleep(1700);
                     }
                 
                 }

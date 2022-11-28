@@ -204,7 +204,7 @@ namespace SeniorProject
                                 }
                             }
                         }
-                        System.Threading.Thread.Sleep(5000);
+                        System.Threading.Thread.Sleep(4000);
                     }
                 });
             }
@@ -298,7 +298,7 @@ namespace SeniorProject
                                     
 
                                     TextBox text = new TextBox();
-                                    text.Height = 36;
+                                    
                                     text.TextWrapping = TextWrapping.Wrap;
                                     text.Margin = new Thickness(5, 0, 0, 0);
                                     text.HorizontalAlignment = HorizontalAlignment.Left;
@@ -315,7 +315,7 @@ namespace SeniorProject
 
                                     Label time = new Label();
                                     time.Height = 23;
-                                    time.Margin = new Thickness(70, -10, 0, 0);
+                                    time.Margin = new Thickness(70, 0, 0, 0);
                                     time.HorizontalAlignment = HorizontalAlignment.Left;
                                     time.Background = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#05083d"));
                                     time.FontSize = 11;
@@ -331,7 +331,7 @@ namespace SeniorProject
                                 });
                             }
                         }
-                        System.Threading.Thread.Sleep(3000);
+                        System.Threading.Thread.Sleep(1800);
                     }
                 }
                 catch (Exception e)

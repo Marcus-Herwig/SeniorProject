@@ -549,7 +549,7 @@
                        FontFamily="Segoe UI"
                        Margin="300,0,0,0"/>
 
-                    <TextBox Template="{StaticResource TextBoxRoundedCorners}" x:Name="Password" Margin="106,0,0,0" Cursor="IBeam" IsReadOnly="false" Height="35" Width="225" Background="#e6e6e6" VerticalContentAlignment="Center" FontSize="18" VerticalAlignment="Center"/>
+                    <TextBox Template="{StaticResource TextBoxRoundedCorners}" x:Name="Password" Margin="106,0,0,0" Cursor="IBeam" IsReadOnly="false" Height="35" Width="225" Background="#e6e6e6" VerticalContentAlignment="Center" FontSize="18" VerticalAlignment="Center" FontFamily="Fonts\#password"/>
 
                 </StackPanel>
 
@@ -724,7 +724,7 @@
                        FontFamily="Segoe UI"
                        Margin="300,0,0,0"/>
 
-                    <TextBox Template="{StaticResource TextBoxRoundedCorners}" x:Name="CurrentPassword" Margin="10,0,0,0" Cursor="IBeam" IsReadOnly="false" Height="35" Width="225" Background="#e6e6e6" VerticalContentAlignment="Center" FontSize="18" VerticalAlignment="Center"/>
+                    <TextBox Template="{StaticResource TextBoxRoundedCorners}" x:Name="CurrentPassword" Margin="10,0,0,0" Cursor="IBeam" IsReadOnly="false" Height="35" Width="225" Background="#e6e6e6" VerticalContentAlignment="Center" FontSize="18" VerticalAlignment="Center" FontFamily="Fonts\#password"/>
 
                 </StackPanel>
 
@@ -738,7 +738,7 @@
                        FontFamily="Segoe UI"
                        Margin="300,0,0,0"/>
 
-                    <TextBox Template="{StaticResource TextBoxRoundedCorners}" x:Name="ConfirmPasswordChangeText" Margin="42,0,0,0" Cursor="IBeam" IsReadOnly="false" Height="35" Width="225" Background="#e6e6e6" VerticalContentAlignment="Center" FontSize="18" VerticalAlignment="Center"/>
+                    <TextBox Template="{StaticResource TextBoxRoundedCorners}" x:Name="ConfirmPasswordChangeText" Margin="42,0,0,0" Cursor="IBeam" IsReadOnly="false" Height="35" Width="225" Background="#e6e6e6" VerticalContentAlignment="Center" FontSize="18" VerticalAlignment="Center" FontFamily="Fonts\#password"/>
 
                 </StackPanel>
 
@@ -752,7 +752,7 @@
                        FontFamily="Segoe UI"
                        Margin="300,0,0,0"/>
 
-                    <TextBox Template="{StaticResource TextBoxRoundedCorners}" x:Name="ConfirmPassword" Margin="11,0,0,0" Cursor="IBeam" IsReadOnly="false" Height="35" Width="225" Background="#e6e6e6" VerticalContentAlignment="Center" FontSize="18" VerticalAlignment="Center"/>
+                    <TextBox Template="{StaticResource TextBoxRoundedCorners}" x:Name="ConfirmPassword" Margin="11,0,0,0" Cursor="IBeam" IsReadOnly="false" Height="35" Width="225" Background="#e6e6e6" VerticalContentAlignment="Center" FontSize="18" VerticalAlignment="Center" FontFamily="Fonts\#password"/>
 
                 </StackPanel>
 
@@ -813,7 +813,7 @@
                        FontFamily="Segoe UI"
                        Margin="300,0,0,0"/>
 
-                    <TextBox Template="{StaticResource TextBoxRoundedCorners}" x:Name="DeleteAccountPasswordBox" Margin="10,0,0,0" Cursor="IBeam" IsReadOnly="false" Height="35" Width="225" Background="#e6e6e6" VerticalContentAlignment="Center" FontSize="18" VerticalAlignment="Center"/>
+                    <TextBox Template="{StaticResource TextBoxRoundedCorners}" x:Name="DeleteAccountPasswordBox" Margin="10,0,0,0" Cursor="IBeam" IsReadOnly="false" Height="35" Width="225" Background="#e6e6e6" VerticalContentAlignment="Center" FontSize="18" VerticalAlignment="Center" FontFamily="Fonts\#password"/>
 
                 </StackPanel>
 
