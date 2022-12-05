@@ -235,8 +235,12 @@ namespace SeniorProject
                         {
                             SentCount++;
                         }
+                        if (chat.GetString("Sender") == this.CurrFriend && chat.GetString("Reciever") == App.Current.Properties["Username"].ToString())
+                        {
+                            SentCount++;
+                        }
                     }
-                    string EntityRowKey = App.Current.Properties["Username"] + "to" + this.FriendName.Content + SentCount.ToString();
+                    string EntityRowKey = SentCount.ToString() + App.Current.Properties["Username"] + "to" + this.FriendName.Content;
                     var newchat = new TableEntity("chat", EntityRowKey)
                     {
                         {"Sender", App.Current.Properties["Username"] },
