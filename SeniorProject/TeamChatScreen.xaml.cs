@@ -198,7 +198,7 @@ namespace SeniorProject
                                         template.BorderBrush = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#140d4f"));
                                         template.Template = Application.Current.Resources["ListBoxItemTemplate"] as ControlTemplate;
                                         template.Selected += ListBoxItem_Selected;
-                                        template.Name = entity.GetString("TeamName");
+                                        template.Name = entity.GetString("TeamName").Replace(" ", "_").Replace("-", "_").Replace("'", "");
                                         this.GroupList.Items.Add(template);
                                     });
                                 }
