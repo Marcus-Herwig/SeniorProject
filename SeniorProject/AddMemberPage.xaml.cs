@@ -31,9 +31,9 @@ namespace SeniorProject
         {
             InitializeComponent();
             this.GroupToAddTo = groupName;
-            this.AzureStorageConnectionString = "https://seniorproject.table.core.windows.net/";
-            this.AzureStorageKey = "cy2AiZ+cJ9/Ft6uXeq7bFVgT2zcSKniQcOGXC955XTbjqvhg1xdN4S34f0ZH9tVEIc3doK4kbxld+AStm9DbtQ==";
-            this.StorageAccountName = "seniorproject";
+            this.AzureStorageConnectionString = "xx";
+            this.AzureStorageKey = "xx";
+            this.StorageAccountName = "xx";
             this.client = new TableClient(new Uri(this.AzureStorageConnectionString), "Accounts", new TableSharedKeyCredential(this.StorageAccountName, this.AzureStorageKey));
         }
         private void Button_Click_AddMember(object sender, RoutedEventArgs e)
