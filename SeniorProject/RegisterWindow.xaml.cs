@@ -30,9 +30,9 @@ namespace SeniorProject
         {
             InitializeComponent();
             this.LoginScreen = new MainWindow();
-            this.AzureStorageConnectionString = "https://seniorproject.table.core.windows.net/";
-            this.AzureStorageKey = "cy2AiZ+cJ9/Ft6uXeq7bFVgT2zcSKniQcOGXC955XTbjqvhg1xdN4S34f0ZH9tVEIc3doK4kbxld+AStm9DbtQ==";
-            this.StorageAccountName = "seniorproject";
+            this.AzureStorageConnectionString = "xx";
+            this.AzureStorageKey = "xx";
+            this.StorageAccountName = "xx";
         }
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
